@@ -7,19 +7,19 @@ import slide2 from "../../../assets/home/slide2.jpg";
 import slide3 from "../../../assets/home/slide3.jpg";
 import slide4 from "../../../assets/home/slide4.jpg";
 import slide5 from "../../../assets/home/slide5.jpg";
+import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 
 const Category = () => {
   return (
-    <div className="py-24 mt-24">
-      <div className="text-center">
-        <h3 className="font-semibold py-5 text-[#D99904]">
-          ---From 11:00am to 10:00pm---
-        </h3>
-        <h1 className="text-2xl pb-5 text-semibold">ORDER ONLINE</h1>
-      </div>
+    
+      <section className="py-24 mt-24">
+        <SectionTitle
+        subHeading={'---From 11:00am to 10:00pm---'}
+        heading={'ORDER ONLINE'}
+        >
 
-      <div>
-        <Swiper
+        </SectionTitle>
+      <Swiper
           slidesPerView={4}
           spaceBetween={30}
           centeredSlides={true}
@@ -54,8 +54,7 @@ const Category = () => {
             <h2 className="text-center text-xl text-white -mt-10">Salads</h2>
           </SwiperSlide>
         </Swiper>
-      </div>
-    </div>
+      </section>
   );
 };
 
