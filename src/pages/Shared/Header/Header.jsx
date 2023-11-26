@@ -4,11 +4,11 @@ import { FaUser } from "react-icons/fa";
 
 const Header = () => {
   return (
-    <div className="text-white bg-[#15151580]">
+    <div className="text-white w-full fixed z-30 px-8 py-5 bg-[#15151580]">
       <div className="container mx-auto md:mx-auto grid grid-cols-2 ">
-        <div>
-          <h1 className="text-2xl font-bold">BISTRO BOSS</h1>
-          <h3>RESTAURANT</h3>
+        <div className="">
+          <a className="text-2xl font-bold" href="/">BISTRO BOSS</a><br></br>
+          <a className="text-center ps-5" href="/">RESTAURANT</a>
         </div>
 
         <div className="flex items-center justify-center text-sm gap-4">

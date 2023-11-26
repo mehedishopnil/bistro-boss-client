@@ -1,0 +1,40 @@
+.bistro-boss {
+    position: relative;
+  background-image: url("../../../assets/home/chef-service.jpg");
+  background-size: cover;
+  background-position: center;
+  color: rgb(
+    45,
+    45,
+    45
+  ); 
+  padding: 100px 50px; /* Adjust padding as needed */
+  margin-bottom: 100px;
+}
+
+.bistro-boss .text-center {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Set a semi-transparent white background for the text content */
+  padding: 80px; /* Adjust padding as needed */
+  position: relative;
+  z-index: 1;
+  width: 800px;
+  /* Ensure text content appears above the background image */
+}
+
+.bistro-boss h1,
+.bistro-boss p {
+  margin: 0; /* Remove default margin for the heading and paragraph */
+}
+.bistro-boss h1 {
+  color: var(--Dark-01, #151515);
+  font-family: Cinzel;
+  font-size: 45px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
