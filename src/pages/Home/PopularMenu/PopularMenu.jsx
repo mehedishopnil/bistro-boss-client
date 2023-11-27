@@ -23,7 +23,7 @@ const PopularMenu = () => {
             >
             </SectionTitle>
 
-            <div>
+            <div className="container mx-auto md:mx-auto pb-16 grid grid-cols-2 gap-10">
                 {
                     menu.map(item => <MenuItem 
                     key={item._id}
