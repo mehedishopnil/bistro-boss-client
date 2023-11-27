@@ -5,7 +5,7 @@ import ProductCard from "../../Shared/ProductCard/ProductCard";
 
 const ChefRecommends = () => {
    const {recommendedMenu} = useContext(AuthContext);
-   console.log(recommendedMenu);
+   const limitedItems = recommendedMenu.slice(0,3);
   return (
     <section className="pt-16">
       <SectionTitle
@@ -13,9 +13,9 @@ const ChefRecommends = () => {
         heading={"CHEF RECOMMENDS"}
       ></SectionTitle>
 
-      <div>
+      <div className="container mx-auto grid grid-cols-3 gap-16 p-10 justify-center items-center">
         {
-            recommendedMenu.map(items =>
+            limitedItems.map(items =>
                 <ProductCard
                 key={items._id}
                 items = {items}
