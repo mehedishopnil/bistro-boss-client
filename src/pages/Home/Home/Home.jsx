@@ -7,10 +7,15 @@ import SectionTitle from "../../../components/SectionTitle/SectionTitle";
 import bgImage from "../../../assets/home/featured.jpg";
 import "./Home.css";
 import Testimonial from "../Testimonial/Testimonial";
+import { Helmet } from "react-helmet-async";
 
 const Home = () => {
   return (
     <div>
+      <Helmet>
+        <title>Bistro | Home</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <Banner></Banner>
       <Category></Category>
       <BistroBoss></BistroBoss>

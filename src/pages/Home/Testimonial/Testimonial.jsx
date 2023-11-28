@@ -7,7 +7,8 @@ import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { StarRatingInput } from "react-star-rating-input";
 import { Rating } from "@smastrom/react-rating";
-import '@smastrom/react-rating/style.css'
+import '@smastrom/react-rating/style.css';
+import {  FaQuoteLeft } from 'react-icons/fa';
 
 const Testimonial = () => {
   const { reviews } = useContext(AuthContext);
@@ -34,7 +35,7 @@ const Testimonial = () => {
                 value={review.rating} 
                 readOnly />
               </div>
-                
+                <p className="text-5xl"><FaQuoteLeft></FaQuoteLeft></p>
               <p className="px-28">{review.details}</p>
               <h2 className="text-xl font-semibold text-[#CD9003]">
                 {review.name}

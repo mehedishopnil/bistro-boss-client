@@ -21,7 +21,7 @@ const Header = () => {
           <Link className="font-semibold" to="/">
             DASHBOARD
           </Link>
-          <Link className="font-semibold" to="/">
+          <Link className="font-semibold" to="/menu">
             OUR MENU
           </Link>
           <Link className="font-semibold" to="/">
