@@ -3,8 +3,9 @@ import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext();
 
 const AuthProviders = ({ children }) => {
-    const [recommendedMenu, setRecommendedMenu] = useState([])
+    const [recommendedMenu, setRecommendedMenu] = useState([]);
     const [popularMenu, setPopularMenu] = useState([]);
+    const [reviews, setReviews] = useState([]);
 
     useEffect(()=>{
         fetch('menu.json')
@@ -17,9 +18,16 @@ const AuthProviders = ({ children }) => {
         })
     },[])
 
+    useEffect(()=>{
+        fetch('reviews.json')
+        .then(res=> res.json())
+        .then(data => setReviews(data))
+    },[])
+
   const authInfo = {
     popularMenu,
-    recommendedMenu
+    recommendedMenu,
+    reviews
 
   };
   return (

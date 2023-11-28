@@ -1,11 +1,10 @@
 const ProductCard = ({ items }) => {
-  const { image, name, category, recipe } = items;
+  const { image, name, recipe } = items;
   return (
     <div className="card w-full bg-base-100 shadow-xl">
       <figure>
         <img
           src={image}
-         
         />
       </figure>
       <div className="card-body text-center">

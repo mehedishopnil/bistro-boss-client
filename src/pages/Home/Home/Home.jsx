@@ -28,7 +28,7 @@ const Home = () => {
 
       <section className="relative my-20 h-[848px] z-0">
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-0 bg-cover bg-fixed bg-center"
           style={{ backgroundImage: `url(${bgImage})` }}
         ></div>
         <div className="absolute inset-0 bg-black opacity-70 z-10"></div>
@@ -53,7 +53,7 @@ const Home = () => {
               Eaque repellat recusandae ad laudantium tempore consequatur
               consequuntur omnis ullam maxime tenetur.
             </p>
-            <button className="border-b-2">READ MORE</button>
+            <button className="btn btn-outline border-0 border-b-4 text-white hover:bg-white hover:text-black">READ MORE</button>
           </div>
         </div>
       </section>
