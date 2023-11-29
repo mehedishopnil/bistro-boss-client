@@ -7,6 +7,10 @@ import Dessert from "./Dessert/Dessert";
 import Pizza from "./Pizza/Pizza";
 import Salads from "./Salads/Salads";
 import Soups from "./Soups/Soups";
+import dessertImg from "../../assets/menu/dessert-bg.jpeg"
+import pizzaImg from "../../assets/menu/pizza-bg.jpg"
+import saladsImg from "../../assets/menu/salad-bg.jpg"
+import soupsImg from "../../assets/menu/soup-bg.jpg"
 
 const Menu = () => {
   return (
@@ -27,7 +31,7 @@ const Menu = () => {
 
       <div className="mb-20">
       <Cover
-        img={img2}
+        img={dessertImg}
         header={"DESSERTS"}
         subHeader={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
       ></Cover>
@@ -36,7 +40,7 @@ const Menu = () => {
 
       <div className="mb-20">
       <Cover
-        img={img2}
+        img={pizzaImg}
         header={"PIZZA"}
         subHeader={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
       ></Cover>
@@ -46,7 +50,7 @@ const Menu = () => {
 
       <div className="mb-20">
       <Cover
-        img={img2}
+        img={saladsImg}
         header={"SALADS"}
         subHeader={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
       ></Cover>
@@ -56,7 +60,7 @@ const Menu = () => {
 
       <div className="mb-20">
       <Cover
-        img={img2}
+        img={soupsImg}
         header={"SOUPS"}
         subHeader={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
       ></Cover>

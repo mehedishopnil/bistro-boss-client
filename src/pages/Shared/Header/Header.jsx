@@ -15,22 +15,23 @@ const Header = () => {
           <Link className="font-semibold" to="/">
             HOME
           </Link>
+          
+          <Link className="font-semibold" to="/menu">
+            OUR MENU
+          </Link>
+          <Link className="font-semibold uppercase" to="/order">
+            Order food
+          </Link>
           <Link className="font-semibold" to="/contactUs">
             CONTACT US
           </Link>
           <Link className="font-semibold" to="/">
             DASHBOARD
           </Link>
-          <Link className="font-semibold" to="/menu">
-            OUR MENU
-          </Link>
-          <Link className="font-semibold" to="/">
-            OUR SHOP
-          </Link>
+
           <Link>
             <img className="w-8" src={cartIcon} alt="" />
           </Link>
-
           <div className="text-sm flex gap-5">
             <button className="font-semibold">SIGN IN</button>
             <Link><FaUser></FaUser></Link>
