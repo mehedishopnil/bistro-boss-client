@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import PopularMenu from "../../Home/PopularMenu/PopularMenu";
-import { AuthContext } from "../../../providers/AuthProviders";
 import MenuItem from "../../Shared/MenuItem/MenuItem";
+import useMenu from "../../../hooks/useMenu";
 
 const Offer = () => {
-  const { popularMenu } = useContext(AuthContext);
+  const [menu] = useMenu();
+  const offer = menu.filter(items => items.category === 'offered')
 
   return (
     <section className="my-10">
@@ -15,7 +14,8 @@ const Offer = () => {
       ></SectionTitle>
 
       <div className="container mx-auto md:mx-auto pb-10 grid grid-cols-2 gap-10">
-        {popularMenu.map((item) => (
+        {
+        offer.map((item) => (
           <MenuItem key={item._id} item={item}></MenuItem>
         ))}
       </div>
