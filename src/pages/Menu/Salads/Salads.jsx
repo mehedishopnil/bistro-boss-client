@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useMenu from "../../../hooks/useMenu";
 import MenuItem from "../../Shared/MenuItem/MenuItem";
 
@@ -15,9 +16,11 @@ const Salads = () => {
         ))}
       </div>
       <div className="flex justify-center">
+        <Link to={'/order'}>
         <button className="btn btn-outline border-0 border-b-4 text-center font-semibold">
         ORDER YOUR FAVOURITE FOOD
         </button>
+        </Link>
       </div>
         </div>
     );
