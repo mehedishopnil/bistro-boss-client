@@ -1,73 +1,78 @@
 import { Helmet } from "react-helmet-async";
 import Cover from "../Shared/Cover/Cover";
-import img1 from "../../assets/menu/banner3.jpg";
-import img2 from "../../assets/home/chef-service.jpg"
-import Offer from "./Offer/Offer";
-import Dessert from "./Dessert/Dessert";
-import Pizza from "./Pizza/Pizza";
-import Salads from "./Salads/Salads";
-import Soups from "./Soups/Soups";
-import dessertImg from "../../assets/menu/dessert-bg.jpeg"
-import pizzaImg from "../../assets/menu/pizza-bg.jpg"
-import saladsImg from "../../assets/menu/salad-bg.jpg"
-import soupsImg from "../../assets/menu/soup-bg.jpg"
+import menuImg from "../../assets/home/chef-service.jpg";
+import dessertImg from "../../assets/menu/dessert-bg.jpeg";
+import pizzaImg from "../../assets/menu/pizza-bg.jpg";
+import saladsImg from "../../assets/menu/salad-bg.jpg";
+import soupsImg from "../../assets/menu/soup-bg.jpg";
+import useMenu from "../../hooks/useMenu";
+import MenuCategory from "../Shared/MenuCategory/MenuCategory";
+import SectionTitle from "../../components/SectionTitle/SectionTitle";
 
 const Menu = () => {
+  const [menu] = useMenu();
+  const offered = menu.filter((items) => items.category === "offered");
+  const dessert = menu.filter((items) => items.category === "dessert");
+  const pizza = menu.filter((items) => items.category === "pizza");
+  const soups = menu.filter((items) => items.category === "soup");
+  const salads = menu.filter((items) => items.category === "salad");
   return (
     <div>
       <Helmet>
         <title>Bistro | Menu</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
-
-      <div className="mb-20">
       <Cover
-        img={img1}
-        header={"OUR MENU"}
-        subHeader={"Would you like to try a dish?"}
+        img={menuImg}
+        title={"Our Menu"}
+        subtitle={"Would you like to try a dish?"}
       ></Cover>
-      <Offer></Offer>
+      <div className="mb-20">
+        <SectionTitle
+          heading={"TODAY'S OFFER"}
+          subHeading={"---Don't miss---"}
+        ></SectionTitle>
+
+        <MenuCategory items={offered}></MenuCategory>
       </div>
 
       <div className="mb-20">
-      <Cover
+        
+        <MenuCategory 
         img={dessertImg}
-        header={"DESSERTS"}
-        subHeader={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
-      ></Cover>
-      <Dessert></Dessert>
+        items={dessert}
+        title={"dessert"}
+        subtitle={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
+        ></MenuCategory>
       </div>
 
       <div className="mb-20">
-      <Cover
+        
+        <MenuCategory 
         img={pizzaImg}
-        header={"PIZZA"}
-        subHeader={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
-      ></Cover>
-      <Pizza></Pizza>
+        title={"pizza"}
+        items={pizza}
+        subtitle={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
+        ></MenuCategory>
       </div>
 
-
       <div className="mb-20">
-      <Cover
+        <MenuCategory 
         img={saladsImg}
-        header={"SALADS"}
-        subHeader={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
-      ></Cover>
-      <Salads></Salads>
+        title={"salads"}
+        items={salads}
+        subtitle={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
+        ></MenuCategory>
       </div>
-
 
       <div className="mb-20">
-      <Cover
+        <MenuCategory 
         img={soupsImg}
-        header={"SOUPS"}
-        subHeader={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
-      ></Cover>
-      <Soups></Soups>
-      
+        title={"soups"}
+        items={soups}
+        subtitle={"Lorem Ipsum has been the industry’s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}
+        ></MenuCategory>
       </div>
-      
     </div>
   );
 };
