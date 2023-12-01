@@ -5,7 +5,8 @@ import ProductCard from "../../Shared/ProductCard/ProductCard";
 
 const ChefRecommends = () => {
    const {recommendedMenu} = useContext(AuthContext);
-   const limitedItems = recommendedMenu.slice(0,3);
+   const limitedItems = recommendedMenu?.slice(0, 3) || [];
+   
   return (
     <section className="pt-16">
       <SectionTitle

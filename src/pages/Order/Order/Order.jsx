@@ -5,9 +5,18 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import ProductCard from "../../Shared/ProductCard/ProductCard";
 import './Order.css'
+import { useParams } from "react-router-dom";
+import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const Order = () => {
   const [menu] = useMenu();
+  const categories = ['salads','pizza','soups','dessert','drinks'];
+  const { category } = useParams();
+  const initialIndex = categories.indexOf(category);
+  const [tabIndex, setTabIndex] = useState(initialIndex);
+  
+  console.log(category);
   const salads = menu.filter((items) => items.category === "salad");
   const pizza = menu.filter((items) => items.category === "pizza");
   const soups = menu.filter((items) => items.category === "soup");
@@ -16,6 +25,10 @@ const Order = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Bistro | Order Food</title>
+        <link rel="canonical" href="https://www.tacobell.com/" />
+      </Helmet>
       <Cover
         img={orderImg}
         header={"OUR SHOP"}
@@ -23,10 +36,10 @@ const Order = () => {
       ></Cover>
 
       <section className="py-10">
-        <Tabs selectedTabClassName="selected-tab font-bold text-[#BB8506] ">
+        <Tabs defaultIndex={tabIndex} onSelect={(index)=>setTabIndex(index)} selectedTabClassName="selected-tab font-bold text-[#BB8506] ">
           <TabList className="flex flex-cols font-semibold justify-center  text-[#151515]  ">
             <div>
-            <Tab>Salad</Tab>
+            <Tab>Salads</Tab>
             <Tab>pizza</Tab>
             <Tab>soups</Tab>
             <Tab>desserts</Tab>
@@ -38,7 +51,7 @@ const Order = () => {
             <div className=" grid grid-cols-3 gap-16 p-10 justify-center items-center">
             {
             salads.map((items) => (
-              <ProductCard 
+              <ProductCard
               key={items._key} 
               items={items}>
               </ProductCard>

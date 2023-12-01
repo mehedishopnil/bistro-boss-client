@@ -19,7 +19,7 @@ const Header = () => {
           <Link className="font-semibold" to="/menu">
             OUR MENU
           </Link>
-          <Link className="font-semibold uppercase" to="/order">
+          <Link className="font-semibold uppercase" to="/order/salads">
             Order food
           </Link>
           <Link className="font-semibold" to="/contactUs">

@@ -11,8 +11,7 @@ import '@smastrom/react-rating/style.css';
 import {  FaQuoteLeft } from 'react-icons/fa';
 
 const Testimonial = () => {
-  const { reviews } = useContext(AuthContext);
-  console.log(reviews);
+  const {reviews} = useContext(AuthContext);
   return (
     <section className="container mx-auto my-20 w-2/3 ">
       <SectionTitle
