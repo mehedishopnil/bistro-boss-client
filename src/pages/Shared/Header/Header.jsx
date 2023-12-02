@@ -33,7 +33,7 @@ const Header = () => {
             <img className="w-8" src={cartIcon} alt="" />
           </Link>
           <div className="text-sm flex gap-5">
-            <button className="font-semibold">SIGN IN</button>
+            <Link to={'/login'}><button className="font-semibold">Log In</button></Link>
             <Link><FaUser></FaUser></Link>
           </div>
         </div>
