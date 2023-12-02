@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import bgImg from "../../assets/others/authentication.png";
 import formImg from "../../assets/others/authentication2.png";
 
-const Login = () => {
-  return (
-    <div
+const Registration = () => {
+    return (
+        <div
       className=" flex justify-center items-center h-[700px]  bg-base-100"
       style={{ backgroundImage: `url(${bgImg})` }}
     >
@@ -14,8 +14,20 @@ const Login = () => {
       >
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <h1 className="text-center text-2xl font-bold pt-4">LogIn</h1>
+            <h1 className="text-center text-2xl font-bold pt-4">Register Now</h1>
             <form className="card-body">
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Name</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="input your name"
+                  className="input input-bordered"
+                  required
+                />
+              </div>
+
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -37,16 +49,16 @@ const Login = () => {
                   className="input input-bordered"
                   required
                 />
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover text-[#D1A054]">
-                    Forgot password?
-                  </a>
-                </label>
+                
               </div>
               <div className="form-control mt-6">
-                <button className="btn bg-[#D1A054] text-white hover:bg-[#b18441]">Login</button>
+                <input 
+                type="submit"
+                  value='Register'
+                  className="btn bg-[#D1A054] text-white hover:bg-[#b18441]" />
+
               </div>
-              <p>Do not have Account? Please <Link to={'/registration'} className="font-bold text-[#D1A054]">Register</Link></p>
+              <p className="text-center">Already have Account? Please <Link to={'/login'} className="font-bold text-[#D1A054]">Login</Link></p>
             </form>
           </div>
 
@@ -56,7 +68,7 @@ const Login = () => {
         </div>
       </div>
     </div>
-  );
+    );
 };
 
-export default Login;
+export default Registration;
