@@ -4,24 +4,41 @@ import Cover from "../../Shared/Cover/Cover";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import "react-tabs/style/react-tabs.css";
 import ProductCard from "../../Shared/ProductCard/ProductCard";
-import './Order.css'
+import "./Order.css";
 import { useParams } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 
-const Order = () => {
+const ITEMS_PER_PAGE = 6;
+
+const Order = ({ onPageChange }) => {
   const [menu] = useMenu();
-  const categories = ['salads','pizza','soups','dessert','drinks'];
+  const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
   const { category } = useParams();
   const initialIndex = categories.indexOf(category);
   const [tabIndex, setTabIndex] = useState(initialIndex);
-  
-  console.log(category);
-  const salads = menu.filter((items) => items.category === "salad");
-  const pizza = menu.filter((items) => items.category === "pizza");
-  const soups = menu.filter((items) => items.category === "soup");
-  const dessert = menu.filter((items) => items.category === "dessert");
-  const drinks = menu.filter(items => items.category === "drinks")
+
+  const filterItemsByCategory = (category) => {
+    return menu.filter((items) => items.category === category);
+  };
+
+  const currentCategory = categories[tabIndex];
+  const filteredItems = filterItemsByCategory(currentCategory);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentItems = filteredItems.slice(startIndex, endIndex);
+
+  const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+
+  const handlePageChange = (selectedPage) => {
+    setCurrentPage(selectedPage);
+    onPageChange(selectedPage); // assuming onPageChange is defined and should handle page changes
+  };
+
+  console.log("category:", currentCategory);
+  console.log("filteredItems:", filteredItems);
 
   return (
     <div>
@@ -29,6 +46,7 @@ const Order = () => {
         <title>Bistro | Order Food</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
+
       <Cover
         img={orderImg}
         header={"OUR SHOP"}
@@ -36,80 +54,49 @@ const Order = () => {
       ></Cover>
 
       <section className="py-10">
-        <Tabs defaultIndex={tabIndex} onSelect={(index)=>setTabIndex(index)} selectedTabClassName="selected-tab font-bold text-[#BB8506] ">
-          <TabList className="flex flex-cols font-semibold justify-center  text-[#151515]  ">
-            <div>
-            <Tab>Salads</Tab>
-            <Tab>pizza</Tab>
-            <Tab>soups</Tab>
-            <Tab>desserts</Tab>
-            <Tab>drinks</Tab>
-            </div>
+        <Tabs
+          defaultIndex={tabIndex}
+          onSelect={(index) => {
+            setTabIndex(index);
+            setCurrentPage(1); // Reset page when switching tabs
+          }}
+          selectedTabClassName="selected-tab font-bold text-[#BB8506] "
+        >
+          <TabList className="flex flex-cols font-semibold justify-center text-[#151515]">
+            {categories.map((cat, index) => (
+              <Tab key={index}>{cat}</Tab>
+            ))}
           </TabList>
 
-          <TabPanel>
-            <div className=" grid grid-cols-3 gap-16 p-10 justify-center items-center">
-            {
-            salads.map((items) => (
-              <ProductCard
-              key={items._key} 
-              items={items}>
-              </ProductCard>
-            ))}
-            </div>
-          </TabPanel>
+          {categories.map((cat, index) => (
+            <TabPanel key={index}>
+              <div className="grid grid-cols-3 gap-16 p-10 justify-center items-center">
+                {currentItems.map((items) => (
+                  <ProductCard key={items._key} items={items}></ProductCard>
+                ))}
+              </div>
 
-
-          <TabPanel>
-          <div className=" grid grid-cols-3 gap-16 p-10 justify-center items-center">
-            {
-            pizza.map((items) => (
-              <ProductCard 
-              key={items._key} 
-              items={items}>
-              </ProductCard>
-            ))}
-            </div>
-          </TabPanel>
-
-
-          <TabPanel>
-            <div className=" grid grid-cols-3 gap-16 p-10 justify-center items-center">
-            {
-            soups.map((items) => (
-              <ProductCard 
-              key={items._key} 
-              items={items}>
-              </ProductCard>
-            ))}
-            </div>
-          </TabPanel>
-
-
-          <TabPanel>
-            <div className=" grid grid-cols-3 gap-16 p-10 justify-center items-center">
-            {
-            dessert.map((items) => (
-              <ProductCard 
-              key={items._key} 
-              items={items}>
-              </ProductCard>
-            ))}
-            </div>
-          </TabPanel>
-
-
-          <TabPanel>
-            <div className=" grid grid-cols-3 gap-16 p-10 justify-center items-center">
-            {
-            drinks.map((items) => (
-              <ProductCard 
-              key={items._key} 
-              items={items}>
-              </ProductCard>
-            ))}
-            </div>
-          </TabPanel>
+              {totalPages > 1 && (
+                <div className="flex justify-center mt-4">
+                  <ul className="pagination flex">
+                    {Array.from({ length: totalPages }).map((_, index) => (
+                      <li
+                        key={index}
+                        className={`${
+                          currentPage === index + 1
+                            ? "bg-blue-500 text-white"
+                            : "bg-gray-200 text-gray-700"
+                        } px-3 py-2 mx-1 cursor-pointer rounded-full`}
+                        onClick={() => handlePageChange(index + 1)}
+                      >
+                        {index + 1}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </TabPanel>
+          ))}
         </Tabs>
       </section>
     </div>
