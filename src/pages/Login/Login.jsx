@@ -1,15 +1,24 @@
 import { Link } from "react-router-dom";
 import bgImg from "../../assets/others/authentication.png";
 import formImg from "../../assets/others/authentication2.png";
+import {
+  
+  LoadCanvasTemplate, loadCaptchaEnginge,
+  
+} from "react-simple-captcha";
+import { useEffect } from "react";
 
 const Login = () => {
+    useEffect (()=>{
+        loadCaptchaEnginge(6);
+    },[])
   return (
     <div
       className=" flex justify-center items-center h-[700px]  bg-base-100"
       style={{ backgroundImage: `url(${bgImg})` }}
     >
       <div
-        className="hero w-9/12 h-[500px] px-10 shadow-2xl rounded bg-base-200"
+        className="hero w-9/12 h-auto p-10 shadow-2xl rounded bg-base-200"
         style={{ backgroundImage: `url(${bgImg})` }}
       >
         <div className="hero-content flex-col lg:flex-row-reverse">
@@ -38,15 +47,40 @@ const Login = () => {
                   required
                 />
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover text-[#D1A054]">
+                  <a
+                    href="#"
+                    className="label-text-alt link link-hover text-[#D1A054]"
+                  >
                     Forgot password?
                   </a>
                 </label>
+                
               </div>
+              <div className="">
+                <label ><LoadCanvasTemplate /></label>
+              <input
+                  type="password"
+                  className="input input-bordered"
+                  required
+                />
+                
+              </div>
+
+              
+
               <div className="form-control mt-6">
-                <button className="btn bg-[#D1A054] text-white hover:bg-[#b18441]">Login</button>
+                <input
+                  type="submit"
+                  value="Login  "
+                  className="btn bg-[#D1A054] text-white hover:bg-[#b18441]"
+                />
               </div>
-              <p>Do not have Account? Please <Link to={'/registration'} className="font-bold text-[#D1A054]">Register</Link></p>
+              <p>
+                Do not have Account? Please{" "}
+                <Link to={"/registration"} className="font-bold text-[#D1A054]">
+                  Register
+                </Link>
+              </p>
             </form>
           </div>
 

@@ -9,7 +9,7 @@ const Registration = () => {
       style={{ backgroundImage: `url(${bgImg})` }}
     >
       <div
-        className="hero w-9/12 h-[500px] px-10 shadow-2xl rounded bg-base-200"
+        className="hero w-9/12 h-auto p-10 shadow-2xl rounded bg-base-200"
         style={{ backgroundImage: `url(${bgImg})` }}
       >
         <div className="hero-content flex-col lg:flex-row-reverse">
@@ -63,7 +63,7 @@ const Registration = () => {
           </div>
 
           <div className="text-center lg:text-left">
-            <img src={formImg} alt="" />
+            <img src={formImg} alt=""/>
           </div>
         </div>
       </div>
