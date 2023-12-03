@@ -2,16 +2,48 @@ import { Link } from "react-router-dom";
 import bgImg from "../../assets/others/authentication.png";
 import formImg from "../../assets/others/authentication2.png";
 import {
-  
-  LoadCanvasTemplate, loadCaptchaEnginge,
-  
+  LoadCanvasTemplate,
+  loadCaptchaEnginge,
+  validateCaptcha,
 } from "react-simple-captcha";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProviders";
 
 const Login = () => {
-    useEffect (()=>{
-        loadCaptchaEnginge(6);
-    },[])
+  const [disabled, setDisabled] = useState(true);
+  const captchaRef = useRef(null);
+
+  const {login} = useContext(AuthContext);
+
+  useEffect(() => {
+    loadCaptchaEnginge(6);
+  }, []);
+
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    login (email, password)
+    .then(result =>{
+      const user = result.user;
+      console.log(user);
+    })
+    .catch((error)=> {
+      console.log(error);
+    })
+  }
+
+  const handleValidateCaptcha = () => {
+    const user_captcha_value = captchaRef.current.value;
+    if (validateCaptcha(user_captcha_value) == true) {
+      setDisabled(false);
+    } else {
+      setDisabled(true);
+      alert("captcha des't match ");
+    }
+  };
   return (
     <div
       className=" flex justify-center items-center h-[700px]  bg-base-100"
@@ -24,7 +56,8 @@ const Login = () => {
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <h1 className="text-center text-2xl font-bold pt-4">LogIn</h1>
-            <form className="card-body">
+
+            <form onSubmit={handleLogin} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -32,6 +65,7 @@ const Login = () => {
                 <input
                   type="email"
                   placeholder="email"
+                  name="email"
                   className="input input-bordered"
                   required
                 />
@@ -43,6 +77,7 @@ const Login = () => {
                 <input
                   type="password"
                   placeholder="password"
+                  name="password"
                   className="input input-bordered"
                   required
                 />
@@ -54,24 +89,32 @@ const Login = () => {
                     Forgot password?
                   </a>
                 </label>
-                
               </div>
               <div className="">
-                <label ><LoadCanvasTemplate /></label>
-              <input
-                  type="password"
-                  className="input input-bordered"
+                <label className="text-[#D1A054]">
+                  <LoadCanvasTemplate />
+                </label>
+                <input
+                  type="text"
+                  ref={captchaRef}
+                  placeholder="type the captcha"
+                  className="input input-bordered w-full"
                   required
                 />
-                
-              </div>
 
-              
+                <button
+                  onClick={handleValidateCaptcha}
+                  className="btn btn-outline btn-sm mt-2 w-full"
+                >
+                  Validate
+                </button>
+              </div>
 
               <div className="form-control mt-6">
                 <input
                   type="submit"
                   value="Login  "
+                  disabled={disabled}
                   className="btn bg-[#D1A054] text-white hover:bg-[#b18441]"
                 />
               </div>

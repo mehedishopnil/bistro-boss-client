@@ -1,22 +1,45 @@
 import { createContext, useEffect, useState } from "react";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import app from "../firebase/firebase.config";
+
 
 export const AuthContext = createContext();
+const auth= getAuth(app)
 
 const AuthProviders = ({ children }) => {
-    // const [recommendedMenu, setRecommendedMenu] = useState([]);
-    // const [popularMenu, setPopularMenu] = useState([]);
+    const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [reviews, setReviews] = useState([]);
 
-    // useEffect(()=>{
-    //     fetch('menu.json')
-    //     .then(res => res.json())
-    //     .then(data =>{
-    //         const recommendedMenu = data.filter(items => items.category === 'salad');
-    //         setRecommendedMenu(recommendedMenu);
-    //         const popularItems = data.filter(items => items.category === 'popular');
-    //         setPopularMenu(popularItems)
-    //     })
-    // },[])
+    const createUser = (email, password) => {
+      setLoading(true);
+      return createUserWithEmailAndPassword(auth, email, password)
+    }
+
+    const login = (email, password) => 
+    {
+      setLoading(true);
+      return signInWithEmailAndPassword( email, password)
+    }
+
+
+    const logOut = () => {
+      setLoading(true);
+      return signOut(auth);
+    }
+
+
+    useEffect(()=>{
+       const unsubscribe = onAuthStateChanged(auth, currentUser => {
+        setUser(currentUser);
+        console.log("Current User:", currentUser);
+        setLoading(false);
+       })
+
+       return () => {
+        return unsubscribe();
+       }
+    },[])
 
     useEffect(()=>{
         fetch('http://localhost:5000/reviews')
@@ -25,7 +48,12 @@ const AuthProviders = ({ children }) => {
     },[])
 
   const authInfo = {
-    reviews
+    user,
+    loading,
+    reviews,
+    createUser,
+    login,
+    logOut
 
   };
   return (

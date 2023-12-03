@@ -1,10 +1,33 @@
 import { Link } from "react-router-dom";
 import bgImg from "../../assets/others/authentication.png";
 import formImg from "../../assets/others/authentication2.png";
+import { useContext } from "react";
+import { AuthContext } from "../../providers/AuthProviders";
+import { useForm } from "react-hook-form";
+
+
 
 const Registration = () => {
-    return (
-        <div
+  const { register, handleSubmit, formState: { errors },} = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+  }
+
+  const { createUser } = useContext(AuthContext);
+
+  // const handleRegistration = (event) => {
+  //   event.preventDefault();
+  //   const form = event.target;
+  //   const name = form.name.value;
+  //   const email = form.email.value;
+  //   const password = form.email.value;
+  //   createUser(name, email, password).then((result) => {
+  //     const user = result.user;
+  //     console.log(user);
+  //   });
+  // };
+  return (
+    <div
       className=" flex justify-center items-center h-[700px]  bg-base-100"
       style={{ backgroundImage: `url(${bgImg})` }}
     >
@@ -14,8 +37,11 @@ const Registration = () => {
       >
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-            <h1 className="text-center text-2xl font-bold pt-4">Register Now</h1>
-            <form className="card-body">
+            <h1 className="text-center text-2xl font-bold pt-4">
+              Register Now
+            </h1>
+
+            <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Name</span>
@@ -23,9 +49,11 @@ const Registration = () => {
                 <input
                   type="text"
                   placeholder="input your name"
+                  {...register("name",{ required: true })}
+                  name="name"
                   className="input input-bordered"
-                  required
                 />
+                {errors.name && <span className="text-red-600">your name is required*</span>}
               </div>
 
               <div className="form-control">
@@ -35,9 +63,11 @@ const Registration = () => {
                 <input
                   type="email"
                   placeholder="email"
+                  {...register("email",{ required: true })}
+                  name="email"
                   className="input input-bordered"
-                  required
                 />
+                {errors.email && <span className="text-red-600">email is required*</span>}
               </div>
               <div className="form-control">
                 <label className="label">
@@ -46,29 +76,39 @@ const Registration = () => {
                 <input
                   type="password"
                   placeholder="password"
+                  {...register("password",{ required: true })}
+                  name="password"
                   className="input input-bordered"
-                  required
                 />
+                {errors.password && <span className="text-red-600">password is required*</span>}
                 
+      )}
               </div>
+
               <div className="form-control mt-6">
-                <input 
-                type="submit"
-                  value='Register'
-                  className="btn bg-[#D1A054] text-white hover:bg-[#b18441]" />
+                <input
+                  type="submit"
+                  value="Register"
+                  className="btn bg-[#D1A054] text-white hover:bg-[#b18441]"
+                />
 
               </div>
-              <p className="text-center">Already have Account? Please <Link to={'/login'} className="font-bold text-[#D1A054]">Login</Link></p>
+              <p className="text-center">
+                Already have Account? Please{" "}
+                <Link to={"/login"} className="font-bold text-[#D1A054]">
+                  Login
+                </Link>
+              </p>
             </form>
           </div>
 
           <div className="text-center lg:text-left">
-            <img src={formImg} alt=""/>
+            <img src={formImg} alt="" />
           </div>
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default Registration;
