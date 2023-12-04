@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, unstable_HistoryRouter, useLocation, useNavigate } from "react-router-dom";
 import bgImg from "../../assets/others/authentication.png";
 import formImg from "../../assets/others/authentication2.png";
 import {
@@ -6,15 +6,19 @@ import {
   loadCaptchaEnginge,
   validateCaptcha,
 } from "react-simple-captcha";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
+import Swal from 'sweetalert2'
+
+
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
-  const captchaRef = useRef(null);
-
+  const [isLoggedin, setIsLoggedIn] = useState(false);
   const {login} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation()
 
   useEffect(() => {
     loadCaptchaEnginge(6);
@@ -29,14 +33,47 @@ const Login = () => {
     .then(result =>{
       const user = result.user;
       console.log(user);
+      Swal.fire({
+        title: "Successfully Logged In ",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `
+        }
+      });
+      form.reset();
+      setIsLoggedIn(true)
+
+      if(isLoggedin ){
+        navigate(location.state.form.pathname);
+      }
+      else {
+        navigate('/');
+      }
     })
     .catch((error)=> {
       console.log(error);
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Wrong Email or Password",
+        footer: "Please enter correct Email or Password"
+      });
+    
     })
   }
 
-  const handleValidateCaptcha = () => {
-    const user_captcha_value = captchaRef.current.value;
+  const handleValidateCaptcha = (e) => {
+    const user_captcha_value = e.target.value;
     if (validateCaptcha(user_captcha_value) == true) {
       setDisabled(false);
     } else {
@@ -44,6 +81,7 @@ const Login = () => {
       alert("captcha des't match ");
     }
   };
+  
   return (
     <div
       className=" flex justify-center items-center h-[700px]  bg-base-100"
@@ -96,18 +134,12 @@ const Login = () => {
                 </label>
                 <input
                   type="text"
-                  ref={captchaRef}
+                  onBlur={handleValidateCaptcha}
                   placeholder="type the captcha"
                   className="input input-bordered w-full"
                   required
                 />
 
-                <button
-                  onClick={handleValidateCaptcha}
-                  className="btn btn-outline btn-sm mt-2 w-full"
-                >
-                  Validate
-                </button>
               </div>
 
               <div className="form-control mt-6">

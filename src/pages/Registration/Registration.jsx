@@ -1,19 +1,58 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import bgImg from "../../assets/others/authentication.png";
 import formImg from "../../assets/others/authentication2.png";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
+import Swal from 'sweetalert2'
+
 
 
 
 const Registration = () => {
-  const { register, handleSubmit, formState: { errors },} = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
-  }
+  const [isRegistrate, setIsRegistrate] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const { createUser } = useContext(AuthContext);
+  const { register, handleSubmit, formState: { errors },reset} = useForm();
+  const onSubmit = (data) => {
+    console.log(data);
+    createUser (data.name, data.email, data.password)
+    .then((result) => {
+      const loggedUser = result.user;
+      console.log(loggedUser);
+      // Reset the form after successful submission
+      setIsRegistrate(true);
+      reset();
+
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Registration Successful",
+        showConfirmButton: false,
+        timer: 1500
+      });
+
+      if(isRegistrate){
+        navigate(location.state.from.pathname);
+      }
+      else{
+        navigate('/');
+      }
+    })
+
+    .catch((error) => {
+      // Handle any errors here
+      console.error("Error during user creation:", error);
+    });
+    
+  }
+  
+
+  
+
 
   // const handleRegistration = (event) => {
   //   event.preventDefault();
@@ -82,7 +121,7 @@ const Registration = () => {
                 />
                 {errors.password && <span className="text-red-600">password is required*</span>}
                 
-      )}
+     
               </div>
 
               <div className="form-control mt-6">
