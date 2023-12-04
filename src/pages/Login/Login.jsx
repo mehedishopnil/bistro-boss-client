@@ -1,4 +1,4 @@
-import { Link, unstable_HistoryRouter, useLocation, useNavigate } from "react-router-dom";
+import { Link,useLocation, useNavigate } from "react-router-dom";
 import bgImg from "../../assets/others/authentication.png";
 import formImg from "../../assets/others/authentication2.png";
 import {
@@ -25,6 +25,9 @@ const Login = () => {
   }, []);
 
   const handleLogin = (event) => {
+
+    const from = location.state?.from?.pathname || '/';
+
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
@@ -50,15 +53,9 @@ const Login = () => {
           `
         }
       });
-      form.reset();
       setIsLoggedIn(true)
-
-      if(isLoggedin ){
-        navigate(location.state.form.pathname);
-      }
-      else {
-        navigate('/');
-      }
+      navigate (from,{replace:true}); 
+      
     })
     .catch((error)=> {
       console.log(error);
@@ -81,7 +78,7 @@ const Login = () => {
       alert("captcha des't match ");
     }
   };
-  
+
   return (
     <div
       className=" flex justify-center items-center h-[700px]  bg-base-100"

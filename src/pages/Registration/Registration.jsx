@@ -19,7 +19,7 @@ const Registration = () => {
   const { register, handleSubmit, formState: { errors },reset} = useForm();
   const onSubmit = (data) => {
     console.log(data);
-    createUser (data.name, data.email, data.password)
+    createUser (data.name, data.photoUrl, data.email, data.password)
     .then((result) => {
       const loggedUser = result.user;
       console.log(loggedUser);
@@ -50,9 +50,6 @@ const Registration = () => {
     
   }
   
-
-  
-
 
   // const handleRegistration = (event) => {
   //   event.preventDefault();
@@ -93,6 +90,20 @@ const Registration = () => {
                   className="input input-bordered"
                 />
                 {errors.name && <span className="text-red-600">your name is required*</span>}
+              </div>
+
+
+              <div className="form-control">
+                <label className="label">
+                  <span className="label-text">Photo url</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="input your photo url"
+                  {...register("photoUrl",{ required: true })}
+                  name="photoUrl"
+                  className="input input-bordered"
+                /> 
               </div>
 
               <div className="form-control">

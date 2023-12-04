@@ -28,8 +28,8 @@ const Header = () => {
           <Link className="font-semibold" to="/contactUs">
             CONTACT US
           </Link>
-          <Link className="font-semibold" to="/">
-            DASHBOARD
+          <Link className="font-semibold" to="/secret">
+            SECRET
           </Link>
 
           <Link>

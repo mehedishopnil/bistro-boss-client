@@ -1,68 +1,90 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
+} from "firebase/auth";
 import app from "../firebase/firebase.config";
 
-
 export const AuthContext = createContext();
-const auth= getAuth(app)
+const auth = getAuth(app);
 
 const AuthProviders = ({ children }) => {
-    const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [reviews, setReviews] = useState([]);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [reviews, setReviews] = useState([]);
 
-    const createUser = async(name, email, password) => {
-      setLoading(true);
-      try {
-        // Create user with email and password
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-        
-        // Update user's display name
-        await updateProfile(userCredential.user, { displayName: name });
-    
-        // Set the user in the state
-        setUser(userCredential.user);
-    
-        return userCredential;
-      } catch (error) {
-        // Handle error
-        console.error("Error creating user:", error);
-        throw error;
-      } finally {
-        setLoading(false);
-      }
+  const createUser = async (name, photoUrl, email, password) => {
+    setLoading(true);
+    try {
+      // Create user with email and password
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      // Update user's display name
+      await updateProfile(userCredential.user, {
+        displayName: name,
+        photoURL: photoUrl,
+      });
+
+      // Set the user in the state
+      setUser(userCredential.user);
+
+    return userCredential;
+    } catch (error) {
+      // Handle error
+      console.error("Error creating user:", error);
+      throw error;
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const login = (email, password) => 
-    {
-      setLoading(true);
-      return signInWithEmailAndPassword(auth, email, password)
-    }
+  const login = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
+  const logOut = () => {
+    setLoading(true);
+    return signOut(auth);
+  };
 
-    const logOut = () => {
-      setLoading(true);
-      return signOut(auth);
-    }
+  // const updateUserProfile = () =>{
+  //   updateProfile(auth.currentUser, {
+  //     displayName: "Jane Q. User", photoURL: "https://example.com/jane-q-user/profile.jpg"
+  //   }).then(() => {
+  //     // Profile updated!
+  //     // ...
+  //   }).catch((error) => {
+  //     // An error occurred
+  //     // ...
+  //   });
+  // }
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log("Current User:", currentUser);
+      setLoading(false);
+    });
 
-    useEffect(()=>{
-       const unsubscribe = onAuthStateChanged(auth, currentUser => {
-        setUser(currentUser);
-        console.log("Current User:", currentUser);
-        setLoading(false);
-       })
+    return () => {
+      return unsubscribe();
+    };
+  }, []);
 
-       return () => {
-        return unsubscribe();
-       }
-    },[])
-
-    useEffect(()=>{
-        fetch('http://localhost:5000/reviews')
-        .then(res=> res.json())
-        .then(data => setReviews(data))
-    },[])
+  useEffect(() => {
+    fetch("http://localhost:5000/reviews")
+      .then((res) => res.json())
+      .then((data) => setReviews(data));
+  }, []);
 
   const authInfo = {
     user,
@@ -70,13 +92,11 @@ const AuthProviders = ({ children }) => {
     reviews,
     createUser,
     login,
-    logOut
-
+    logOut,
   };
+
   return (
-    <AuthContext.Provider value={authInfo}>
-        {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
   );
 };
 
