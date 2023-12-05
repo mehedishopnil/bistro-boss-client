@@ -1,4 +1,4 @@
-import { Link,useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import bgImg from "../../assets/others/authentication.png";
 import formImg from "../../assets/others/authentication2.png";
 import {
@@ -9,65 +9,60 @@ import {
 import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
-import Swal from 'sweetalert2'
-
-
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
   const [isLoggedin, setIsLoggedIn] = useState(false);
-  const {login} = useContext(AuthContext);
+  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
-  const location = useLocation()
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
 
   useEffect(() => {
     loadCaptchaEnginge(6);
   }, []);
 
   const handleLogin = (event) => {
-
-    const from = location.state?.from?.pathname || '/';
-
     event.preventDefault();
     const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-    login (email, password)
-    .then(result =>{
-      const user = result.user;
-      console.log(user);
-      Swal.fire({
-        title: "Successfully Logged In ",
-        showClass: {
-          popup: `
+    login(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        Swal.fire({
+          title: "Successfully Logged In ",
+          showClass: {
+            popup: `
             animate__animated
             animate__fadeInUp
             animate__faster
-          `
-        },
-        hideClass: {
-          popup: `
+          `,
+          },
+          hideClass: {
+            popup: `
             animate__animated
             animate__fadeOutDown
             animate__faster
-          `
-        }
+          `,
+          },
+        });
+        setIsLoggedIn(true);
+        navigate(from, { replace: true });
+      })
+      .catch((error) => {
+        console.log(error);
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Wrong Email or Password",
+          footer: "Please enter correct Email or Password",
+        });
       });
-      setIsLoggedIn(true)
-      navigate (from,{replace:true}); 
-      
-    })
-    .catch((error)=> {
-      console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: "Oops...",
-        text: "Wrong Email or Password",
-        footer: "Please enter correct Email or Password"
-      });
-    
-    })
-  }
+  };
 
   const handleValidateCaptcha = (e) => {
     const user_captcha_value = e.target.value;
@@ -134,16 +129,15 @@ const Login = () => {
                   onBlur={handleValidateCaptcha}
                   placeholder="type the captcha"
                   className="input input-bordered w-full"
-                  required
                 />
-
               </div>
 
+              {/* TODO: here need to disable */}
               <div className="form-control mt-6">
                 <input
                   type="submit"
                   value="Login  "
-                  disabled={disabled}
+                  disabled={false}
                   className="btn bg-[#D1A054] text-white hover:bg-[#b18441]"
                 />
               </div>

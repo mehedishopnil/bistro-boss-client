@@ -49,8 +49,8 @@ const Order = ({ onPageChange }) => {
 
       <Cover
         img={orderImg}
-        header={"OUR SHOP"}
-        subHeader={"Would you like to try a dish?"}
+        title={"OUR SHOP"}
+        subtitle={"Would you like to try a dish?"}
       ></Cover>
 
       <section className="py-10">

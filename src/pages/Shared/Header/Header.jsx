@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import cartIcon from "../../../assets/icon/151-1511569_cart-notifications-free-shopping-cart-favicon-hd-png-removebg-preview.png";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProviders";
@@ -28,7 +27,7 @@ const Header = () => {
           <Link className="font-semibold" to="/menu">
             OUR MENU
           </Link>
-          <Link className="font-semibold uppercase" to="/order/salads">
+          <Link className="font-semibold uppercase" to="/order/salad">
             Order food
           </Link>
           <Link className="font-semibold" to="/contactUs">
