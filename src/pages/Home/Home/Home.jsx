@@ -8,8 +8,11 @@ import bgImage from "../../../assets/home/featured.jpg";
 import "./Home.css";
 import Testimonial from "../Testimonial/Testimonial";
 import { Helmet } from "react-helmet-async";
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProviders";
 
 const Home = () => {
+  
   return (
     <div>
       <Helmet>
