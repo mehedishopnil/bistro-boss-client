@@ -11,11 +11,11 @@ const ProductCard = ({ items }) => {
   const [,refetch] = useCart();
 
  
-  const { image, name, recipe , _id} = items;
+  const { image, name, recipe , _id, price} = items;
   const handleAddToCart = (item) => {
     console.log(item);
     if (user && user.email) {
-      const orderItem = {menuItemId:_id, name, image, email:user.email  }
+      const orderItem = {menuItemId:_id, name, image, email:user.email, price  }
       fetch("http://localhost:5000/cart", {
         method: 'POST',
         headers: {

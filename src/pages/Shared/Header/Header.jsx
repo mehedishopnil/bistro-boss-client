@@ -10,7 +10,7 @@ const Header = () => {
 
   return (
     <div className="text-white w-full fixed z-30 px-8 py-5 bg-[#15151580]">
-      <div className="container mx-auto md:mx-auto grid grid-cols-2 ">
+      <div className="container mx-auto md:mx-auto flex justify-between ">
         <div className="">
           <a className="text-2xl font-bold" href="/">
             BISTRO BOSS
@@ -21,23 +21,47 @@ const Header = () => {
           </a>
         </div>
 
-        <div className="flex items-center justify-center text-sm gap-4">
-          <Link className="font-semibold" to="/">
+        <div className="flex gap-5" >
+          <ul className="flex items-center uppercase text-sm gap-5">
+            <li>
+            <Link className="font-semibold" to="/">
             HOME
           </Link>
+            </li>
 
-          <Link className="font-semibold" to="/menu">
+            <li>
+            <Link className="font-semibold" to="/menu">
             OUR MENU
           </Link>
-          <Link className="font-semibold uppercase" to="/order/salad">
+            </li>
+
+            <li>
+            <Link className="font-semibold uppercase" to="/order/salad">
             Order food
           </Link>
-          <Link className="font-semibold" to="/contactUs">
+            </li>
+
+            <li>
+            <Link className="font-semibold" to="/contactUs">
             CONTACT US
           </Link>
-          <Link className="font-semibold" to="/secret">
+            </li>
+
+            <li>
+            <Link className="font-semibold" to="/secret">
             SECRET
           </Link>
+            </li>
+
+            <li>
+            {
+              user? <Link className="font-semibold" to="/dashboard">
+              Dashboard
+            </Link> : <></>
+            }
+            </li>
+          </ul>
+
 
           <Link to={'/dashboard/myCart'}>
             <button className="btn">
@@ -45,7 +69,7 @@ const Header = () => {
               <div className="badge badge-secondary">+{cart?.length || 0}</div>
             </button>
           </Link>
-          <div className="text-sm flex gap-5">
+          <div className="text-sm flex items-center gap-5">
             {user ? (
               <>
                 <div>
