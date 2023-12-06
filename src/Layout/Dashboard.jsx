@@ -1,3 +1,5 @@
+import { NavLink, Outlet } from "react-router-dom";
+import { TiThMenu } from "react-icons/ti";
 import {
   FaCalendarAlt,
   FaEnvelope,
@@ -6,8 +8,6 @@ import {
   FaShoppingCart,
   FaWallet,
 } from "react-icons/fa";
-import { Link, Outlet } from "react-router-dom";
-import { TiThMenu } from "react-icons/ti";
 
 const Dashboard = () => {
   return (
@@ -38,74 +38,64 @@ const Dashboard = () => {
           {/* Sidebar content here */}
 
           <div className="text-lg font-bold uppercase">
-            <li className={location.pathname === "/" ? "" : "text-white"}>
-              <Link to="userHome">
+            <li>
+              <NavLink to="userHome" activeClassName="text-white">
                 <FaHome />
                 User Home
-              </Link>
+              </NavLink>
             </li>
 
-            <li
-              className={
-                location.pathname === "/reservation" ? "" : "text-white"
-              }
-            >
-              <Link to="reservation">
+            <li>
+              <NavLink to="reservation" activeClassName="text-white">
                 <FaCalendarAlt />
                 Reservation
-              </Link>
+              </NavLink>
             </li>
 
-            <li
-              className={
-                location.pathname === "/paymentHistory" ? "" : "text-white"
-              }
-            >
-              <Link to="paymentHistory">
+            <li>
+              <NavLink to="paymentHistory" activeClassName="text-white">
                 <FaWallet />
                 Payment History
-              </Link>
+              </NavLink>
             </li>
 
-            <li className={location.pathname === "myCart" ? "" : "text-white"}>
-              <Link to="myCart">
+            <li>
+              <NavLink to="myCart" activeClassName="text-white">
                 <FaShoppingCart />
                 My Cart
-              </Link>
+              </NavLink>
             </li>
           </div>
 
-          <div className="border-t-2 border-white my-2 "></div>
+          <div className="border-t-2 border-white my-2"></div>
 
           <div className="text-lg font-bold uppercase">
-          <li className={location.pathname === "/" ? "" : "text-white"}>
-              <Link to="/">
+            <li>
+              <NavLink to="/" activeClassName="text-white">
                 <FaHome />
                 Home
-              </Link>
+              </NavLink>
             </li>
 
-
-            <li className={location.pathname === "myCart" ? "" : "text-white"}>
-              <Link to="myCart">
-              <TiThMenu />
+            <li>
+              <NavLink to="menu" activeClassName="text-white">
+                <TiThMenu />
                 Menu
-              </Link>
+              </NavLink>
             </li>
 
-
-            <li className={location.pathname === "myCart" ? "" : "text-white"}>
-              <Link to="myCart">
+            <li>
+              <NavLink to="shop" activeClassName="text-white">
                 <FaShoppingBag />
                 Shop
-              </Link>
+              </NavLink>
             </li>
 
-            <li className={location.pathname === "myCart" ? "" : "text-white"}>
-              <Link to="myCart">
+            <li>
+              <NavLink to="contact" activeClassName="text-white">
                 <FaEnvelope />
                 Contact
-              </Link>
+              </NavLink>
             </li>
           </div>
         </ul>
