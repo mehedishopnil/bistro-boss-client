@@ -10,6 +10,11 @@ import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
 import PrivateRout from "./PrivateRout";
 import Secret from "../pages/Shared/Secret/Secret";
+import Dashboard from "../Layout/Dashboard";
+import MyCart from "../pages/Dashboard/MyCart/MyCart";
+import UserHome from "../pages/Dashboard/UserHome/UserHome";
+import Reservation from "../pages/Dashboard/Reservation/Reservation";
+import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 
  export const router = createBrowserRouter([
     {
@@ -47,5 +52,27 @@ import Secret from "../pages/Shared/Secret/Secret";
         
       ]
     },
+    {
+      path: "dashboard",
+      element: <Dashboard></Dashboard>,
+      children: [
+        {
+          path: "myCart",
+          element: <MyCart></MyCart>
+        },
+        {
+          path: "userHome",
+          element: <UserHome></UserHome>,
+        },
+        {
+          path: "reservation",
+          element: <Reservation></Reservation>
+        },
+        {
+          path: "paymentHistory",
+          element: <PaymentHistory></PaymentHistory>
+        }
+      ]
+    }
   ]);
   

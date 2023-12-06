@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { FaShoppingCart, FaUser } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../../providers/AuthProviders";
+import useCart from "../../../hooks/useCart";
 
 const Header = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [cart] = useCart();
 
   return (
     <div className="text-white w-full fixed z-30 px-8 py-5 bg-[#15151580]">
@@ -37,10 +39,10 @@ const Header = () => {
             SECRET
           </Link>
 
-          <Link>
+          <Link to={'/dashboard/myCart'}>
             <button className="btn">
               <FaShoppingCart></FaShoppingCart>
-              <div className="badge badge-secondary">00</div>
+              <div className="badge badge-secondary">+{cart?.length || 0}</div>
             </button>
           </Link>
           <div className="text-sm flex gap-5">

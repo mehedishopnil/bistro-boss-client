@@ -17,6 +17,7 @@ const Login = () => {
   const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
+  
 
   const from = location.state?.from?.pathname || "/";
 
