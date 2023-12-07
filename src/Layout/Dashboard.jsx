@@ -8,8 +8,10 @@ import {
   FaShoppingCart,
   FaWallet,
 } from "react-icons/fa";
+import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
+  const [cart] = useCart();
   return (
     <div className="drawer lg:drawer-open f">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -60,9 +62,12 @@ const Dashboard = () => {
             </li>
 
             <li>
-              <NavLink to="myCart" activeClassName="text-white">
-                <FaShoppingCart />
-                My Cart
+              <NavLink to="myCart" activeClassName="text-white" className={"flex items-center"}>
+                <div className="flex gap-2 items-center">
+                  <FaShoppingCart />
+                  <h1>My Cart</h1>
+                </div>
+                <div><h1 className="badge text-lg text-[#D1A054]">+ {cart?.length || 0}</h1></div>
               </NavLink>
             </li>
           </div>
@@ -78,21 +83,21 @@ const Dashboard = () => {
             </li>
 
             <li>
-              <NavLink to="menu" activeClassName="text-white">
+              <NavLink to="/menu" activeClassName="text-white">
                 <TiThMenu />
                 Menu
               </NavLink>
             </li>
 
             <li>
-              <NavLink to="shop" activeClassName="text-white">
+              <NavLink to="/order/salad" activeClassName="text-white">
                 <FaShoppingBag />
                 Shop
               </NavLink>
             </li>
 
             <li>
-              <NavLink to="contact" activeClassName="text-white">
+              <NavLink to="/contactUs" activeClassName="text-white">
                 <FaEnvelope />
                 Contact
               </NavLink>

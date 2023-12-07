@@ -71,7 +71,8 @@ import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
         {
           path: "paymentHistory",
           element: <PaymentHistory></PaymentHistory>
-        }
+        },
+        
       ]
     }
   ]);
