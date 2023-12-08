@@ -8,6 +8,7 @@ import {
   updateProfile,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import Swal from "sweetalert2";
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -33,10 +34,36 @@ const AuthProviders = ({ children }) => {
         photoURL: photoUrl,
       });
 
+      // Users for backend server:
+      const saveUser = { name: name, email: email };
+      const response = await fetch("http://localhost:5000/users", {
+        method: "POST", // Use POST instead of PUT if that's the method in your server
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(saveUser),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const userCreatedData = await response.json();
+
+      if (userCreatedData.insertedId) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Registration Successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      }
+
       // Set the user in the state
       setUser(userCredential.user);
 
-    return userCredential;
+      return userCredential;
     } catch (error) {
       // Handle error
       console.error("Error creating user:", error);

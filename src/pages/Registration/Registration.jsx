@@ -21,47 +21,22 @@ const Registration = () => {
 
   const onSubmit = (data) => {
     console.log(data);
-    createUser(data.name, data.photoUrl, data.email, data.password)
-      .then((result) => {
+    createUser(data.name, data.photoUrl, data.email, data.password).then(
+      (result) => {
         const loggedUser = result.user;
         console.log(loggedUser);
+      }
+    );
 
-        const saveUser = { name: data.name, email: data.email };
-        fetch("http://localhost:5000/users", {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(saveUser),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            if (data.insertedId) {
-              Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "Registration Successful",
-                showConfirmButton: false,
-                timer: 1500,
-              });
+    setIsRegistrate(true);
+    reset();
 
-              setIsRegistrate(true);
-              reset();
-              // Conditionally navigate based on the registration status
-              if (isRegistrate) {
-                navigate(location.state.from.pathname);
-              } else {
-                navigate("/");
-              }
-            }
-          });
-      })
-
-      .catch((error) => {
-        // Handle any errors here
-        console.error("Error during user creation:", error);
-      });
+    // Conditionally navigate based on the registration status
+    if (isRegistrate) {
+      navigate(location.state.from.pathname);
+    } else {
+      navigate("/");
+    }
   };
 
   // const handleRegistration = (event) => {
