@@ -54,7 +54,7 @@ import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
     },
     {
       path: "dashboard",
-      element: <Dashboard></Dashboard>,
+      element: <PrivateRout><Dashboard></Dashboard></PrivateRout>,
       children: [
         {
           path: "myCart",

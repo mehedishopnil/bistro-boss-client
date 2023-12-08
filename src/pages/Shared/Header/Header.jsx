@@ -54,11 +54,9 @@ const Header = () => {
             </li>
 
             <li>
-            {
-              user? <Link className="font-semibold" to="/dashboard">
+            <Link className="font-semibold" to="/dashboard">
               Dashboard
-            </Link> : <></>
-            }
+            </Link> 
             </li>
           </ul>
 

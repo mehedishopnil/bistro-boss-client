@@ -5,51 +5,64 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import Swal from 'sweetalert2'
-
-
-
+import Swal from "sweetalert2";
 
 const Registration = () => {
   const [isRegistrate, setIsRegistrate] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
-
   const { createUser } = useContext(AuthContext);
-  const { register, handleSubmit, formState: { errors },reset} = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
+
   const onSubmit = (data) => {
     console.log(data);
-    createUser (data.name, data.photoUrl, data.email, data.password)
-    .then((result) => {
-      const loggedUser = result.user;
-      console.log(loggedUser);
-      // Reset the form after successful submission
-      setIsRegistrate(true);
-      reset();
+    createUser(data.name, data.photoUrl, data.email, data.password)
+      .then((result) => {
+        const loggedUser = result.user;
+        console.log(loggedUser);
 
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Registration Successful",
-        showConfirmButton: false,
-        timer: 1500
+        const saveUser = { name: data.name, email: data.email };
+        fetch("http://localhost:5000/users", {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(saveUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+            if (data.insertedId) {
+              Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Registration Successful",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+
+              setIsRegistrate(true);
+              reset();
+              // Conditionally navigate based on the registration status
+              if (isRegistrate) {
+                navigate(location.state.from.pathname);
+              } else {
+                navigate("/");
+              }
+            }
+          });
+      })
+
+      .catch((error) => {
+        // Handle any errors here
+        console.error("Error during user creation:", error);
       });
-
-      if(isRegistrate){
-        navigate(location.state.from.pathname);
-      }
-      else{
-        navigate('/');
-      }
-    })
-
-    .catch((error) => {
-      // Handle any errors here
-      console.error("Error during user creation:", error);
-    });
-    
-  }
-  
+  };
 
   // const handleRegistration = (event) => {
   //   event.preventDefault();
@@ -85,13 +98,14 @@ const Registration = () => {
                 <input
                   type="text"
                   placeholder="input your name"
-                  {...register("name",{ required: true })}
+                  {...register("name", { required: true })}
                   name="name"
                   className="input input-bordered"
                 />
-                {errors.name && <span className="text-red-600">your name is required*</span>}
+                {errors.name && (
+                  <span className="text-red-600">your name is required*</span>
+                )}
               </div>
-
 
               <div className="form-control">
                 <label className="label">
@@ -100,10 +114,10 @@ const Registration = () => {
                 <input
                   type="text"
                   placeholder="input your photo url"
-                  {...register("photoUrl",{ required: true })}
+                  {...register("photoUrl", { required: true })}
                   name="photoUrl"
                   className="input input-bordered"
-                /> 
+                />
               </div>
 
               <div className="form-control">
@@ -113,11 +127,13 @@ const Registration = () => {
                 <input
                   type="email"
                   placeholder="email"
-                  {...register("email",{ required: true })}
+                  {...register("email", { required: true })}
                   name="email"
                   className="input input-bordered"
                 />
-                {errors.email && <span className="text-red-600">email is required*</span>}
+                {errors.email && (
+                  <span className="text-red-600">email is required*</span>
+                )}
               </div>
               <div className="form-control">
                 <label className="label">
@@ -126,13 +142,13 @@ const Registration = () => {
                 <input
                   type="password"
                   placeholder="password"
-                  {...register("password",{ required: true })}
+                  {...register("password", { required: true })}
                   name="password"
                   className="input input-bordered"
                 />
-                {errors.password && <span className="text-red-600">password is required*</span>}
-                
-     
+                {errors.password && (
+                  <span className="text-red-600">password is required*</span>
+                )}
               </div>
 
               <div className="form-control mt-6">
@@ -141,7 +157,6 @@ const Registration = () => {
                   value="Register"
                   className="btn bg-[#D1A054] text-white hover:bg-[#b18441]"
                 />
-
               </div>
               <p className="text-center">
                 Already have Account? Please{" "}
