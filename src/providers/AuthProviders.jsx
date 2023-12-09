@@ -23,7 +23,6 @@ const AuthProviders = ({ children }) => {
   const googleProvider = new GoogleAuthProvider();
   const facebookProvider = new FacebookAuthProvider();
 
-  
   //User Part::
   const createUser = async (name, photoUrl, email, password) => {
     setLoading(true);
@@ -80,35 +79,29 @@ const AuthProviders = ({ children }) => {
     }
   };
 
-
-
-//Login Part
+  //Login Part
   const login = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-
-
   //Google Login
-  const googleSignIn = ()=>{
+  const googleSignIn = () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider)
-  }
+    return signInWithPopup(auth, googleProvider);
+  };
 
   //Facebook Login
   const facebookLogIn = () => {
     setLoading(true);
-    return signInWithPopup(auth, facebookProvider)
-  }
+    return signInWithPopup(auth, facebookProvider);
+  };
 
   //LogOut Part
   const logOut = () => {
     setLoading(true);
     return signOut(auth);
   };
-
-
 
   // const updateUserProfile = () =>{
   //   updateProfile(auth.currentUser, {
@@ -148,7 +141,7 @@ const AuthProviders = ({ children }) => {
     login,
     logOut,
     googleSignIn,
-    facebookLogIn
+    facebookLogIn,
   };
 
   return (

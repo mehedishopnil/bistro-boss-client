@@ -5,7 +5,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import Swal from "sweetalert2";
 import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Registration = () => {
@@ -68,82 +67,82 @@ const Registration = () => {
 
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Name</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="input your name"
-                  {...register("name", { required: true })}
-                  name="name"
-                  className="input input-bordered"
-                />
-                {errors.name && (
-                  <span className="text-red-600">your name is required*</span>
-                )}
-              </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Name</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="input your name"
+                    {...register("name", { required: true })}
+                    name="name"
+                    className="input input-bordered"
+                  />
+                  {errors.name && (
+                    <span className="text-red-600">your name is required*</span>
+                  )}
+                </div>
 
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Photo url</span>
-                </label>
-                <input
-                  type="text"
-                  placeholder="input your photo url"
-                  {...register("photoUrl", { required: true })}
-                  name="photoUrl"
-                  className="input input-bordered"
-                />
-              </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Photo url</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="input your photo url"
+                    {...register("photoUrl", { required: true })}
+                    name="photoUrl"
+                    className="input input-bordered"
+                  />
+                </div>
 
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
-                <input
-                  type="email"
-                  placeholder="email"
-                  {...register("email", { required: true })}
-                  name="email"
-                  className="input input-bordered"
-                />
-                {errors.email && (
-                  <span className="text-red-600">email is required*</span>
-                )}
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input
-                  type="password"
-                  placeholder="password"
-                  {...register("password", { required: true })}
-                  name="password"
-                  className="input input-bordered"
-                />
-                {errors.password && (
-                  <span className="text-red-600">password is required*</span>
-                )}
-              </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Email</span>
+                  </label>
+                  <input
+                    type="email"
+                    placeholder="email"
+                    {...register("email", { required: true })}
+                    name="email"
+                    className="input input-bordered"
+                  />
+                  {errors.email && (
+                    <span className="text-red-600">email is required*</span>
+                  )}
+                </div>
+                <div className="form-control">
+                  <label className="label">
+                    <span className="label-text">Password</span>
+                  </label>
+                  <input
+                    type="password"
+                    placeholder="password"
+                    {...register("password", { required: true })}
+                    name="password"
+                    className="input input-bordered"
+                  />
+                  {errors.password && (
+                    <span className="text-red-600">password is required*</span>
+                  )}
+                </div>
 
-              <div className="form-control mt-6">
-                <input
-                  type="submit"
-                  value="Register"
-                  className="btn bg-[#D1A054] text-white hover:bg-[#b18441]"
-                />
-              </div>
-              <p className="text-center">
-                Already have Account? Please{" "}
-                <Link to={"/login"} className="font-bold text-[#D1A054]">
-                  Login
-                </Link>
-              </p>
+                <div className="form-control mt-6">
+                  <input
+                    type="submit"
+                    value="Register"
+                    className="btn bg-[#D1A054] text-white hover:bg-[#b18441]"
+                  />
+                </div>
+                <p className="text-center">
+                  Already have Account? Please{" "}
+                  <Link to={"/login"} className="font-bold text-[#D1A054]">
+                    Login
+                  </Link>
+                </p>
               </div>
               <div className="text-center">
-              <SocialLogin></SocialLogin>
+                <SocialLogin></SocialLogin>
               </div>
             </form>
           </div>
@@ -153,7 +152,6 @@ const Registration = () => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };
