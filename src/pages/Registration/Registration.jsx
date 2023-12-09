@@ -6,6 +6,7 @@ import { AuthContext } from "../../providers/AuthProviders";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Registration = () => {
   const [isRegistrate, setIsRegistrate] = useState(false);
@@ -66,6 +67,7 @@ const Registration = () => {
             </h1>
 
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
+              <div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Name</span>
@@ -139,6 +141,10 @@ const Registration = () => {
                   Login
                 </Link>
               </p>
+              </div>
+              <div className="text-center">
+              <SocialLogin></SocialLogin>
+              </div>
             </form>
           </div>
 
@@ -147,6 +153,7 @@ const Registration = () => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };

@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AuthContext } from "../../providers/AuthProviders";
 import Swal from "sweetalert2";
+import SocialLogin from "../../components/SocialLogin/SocialLogin";
 
 const Login = () => {
   const [disabled, setDisabled] = useState(true);
@@ -89,6 +90,7 @@ const Login = () => {
             <h1 className="text-center text-2xl font-bold pt-4">LogIn</h1>
 
             <form onSubmit={handleLogin} className="card-body">
+              <div>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -148,7 +150,13 @@ const Login = () => {
                   Register
                 </Link>
               </p>
+              </div>
+
+              <div>
+              <SocialLogin></SocialLogin>
+            </div>
             </form>
+            
           </div>
 
           <div className="text-center lg:text-left">

@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
-import { AuthContext } from "../../../providers/AuthProviders";
 import ProductCard from "../../Shared/ProductCard/ProductCard";
+import useMenu from "../../../hooks/useMenu";
 
 const ChefRecommends = () => {
-   const {recommendedMenu} = useContext(AuthContext);
-   const limitedItems = recommendedMenu?.slice(0, 3) || [];
+   const [menu] = useMenu();
+   const limitedItems = menu?.slice(0, 3) || [];
 
   return (
     <section className="pt-16">
