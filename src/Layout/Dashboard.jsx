@@ -12,6 +12,10 @@ import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
   const [cart] = useCart();
+
+  //TODO: load data from the server to have dynamic isAdmin based on Data
+  const isAdmin = true;
+
   return (
     <div className="drawer lg:drawer-open f">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
@@ -38,39 +42,52 @@ const Dashboard = () => {
             <h1 className="text-2xl font-bold tracking-[8px]">Restaurant</h1>
           </div>
           {/* Sidebar content here */}
+          {isAdmin ? (
+            <></>
+          ) : (
+            <>
+              <div className="text-lg font-bold uppercase">
+                <li>
+                  <NavLink to="userHome" activeClassName="text-white">
+                    <FaHome />
+                    User Home
+                  </NavLink>
+                </li>
 
-          <div className="text-lg font-bold uppercase">
-            <li>
-              <NavLink to="userHome" activeClassName="text-white">
-                <FaHome />
-                User Home
-              </NavLink>
-            </li>
+                <li>
+                  <NavLink to="reservation" activeClassName="text-white">
+                    <FaCalendarAlt />
+                    Reservation
+                  </NavLink>
+                </li>
 
-            <li>
-              <NavLink to="reservation" activeClassName="text-white">
-                <FaCalendarAlt />
-                Reservation
-              </NavLink>
-            </li>
+                <li>
+                  <NavLink to="paymentHistory" activeClassName="text-white">
+                    <FaWallet />
+                    Payment History
+                  </NavLink>
+                </li>
 
-            <li>
-              <NavLink to="paymentHistory" activeClassName="text-white">
-                <FaWallet />
-                Payment History
-              </NavLink>
-            </li>
-
-            <li>
-              <NavLink to="myCart" activeClassName="text-white" className={"flex items-center"}>
-                <div className="flex gap-2 items-center">
-                  <FaShoppingCart />
-                  <h1>My Cart</h1>
-                </div>
-                <div><h1 className="badge text-lg text-[#D1A054]">+ {cart?.length || 0}</h1></div>
-              </NavLink>
-            </li>
-          </div>
+                <li>
+                  <NavLink
+                    to="myCart"
+                    activeClassName="text-white"
+                    className={"flex items-center"}
+                  >
+                    <div className="flex gap-2 items-center">
+                      <FaShoppingCart />
+                      <h1>My Cart</h1>
+                    </div>
+                    <div>
+                      <h1 className="badge text-lg text-[#D1A054]">
+                        + {cart?.length || 0}
+                      </h1>
+                    </div>
+                  </NavLink>
+                </li>
+              </div>
+            </>
+          )}
 
           <div className="border-t-2 border-white my-2"></div>
 
