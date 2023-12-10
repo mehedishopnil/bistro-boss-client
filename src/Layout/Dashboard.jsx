@@ -1,11 +1,15 @@
 import { NavLink, Outlet } from "react-router-dom";
 import { TiThMenu } from "react-icons/ti";
 import {
+  FaBook,
+  FaUsers,
   FaCalendarAlt,
   FaEnvelope,
   FaHome,
+  FaListUl,
   FaShoppingBag,
   FaShoppingCart,
+  FaUtensils,
   FaWallet,
 } from "react-icons/fa";
 import useCart from "../hooks/useCart";
@@ -42,9 +46,48 @@ const Dashboard = () => {
             <h1 className="text-2xl font-bold tracking-[8px]">Restaurant</h1>
           </div>
           {/* Sidebar content here */}
-          {isAdmin ? (
-            <></>
-          ) : (
+          {isAdmin ?
+            <>
+            <div className="text-lg font-bold uppercase">
+                <li>
+                  <NavLink to="userHome" activeClassName="text-white">
+                    <FaHome />
+                    Admin Home
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="reservation" activeClassName="text-white">
+                    <FaUtensils></FaUtensils>
+                    Add Items
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="paymentHistory" activeClassName="text-white">
+                    <FaListUl></FaListUl>
+                    Manage Items
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="paymentHistory" activeClassName="text-white">
+                    <FaBook></FaBook>
+                    Manage Bookings
+                  </NavLink>
+                </li>
+
+                <li>
+                  <NavLink to="allUsers" activeClassName="text-white">
+                    <FaUsers></FaUsers>
+                    All Users
+                  </NavLink>
+                </li>
+
+                
+              </div>
+            </>
+           : 
             <>
               <div className="text-lg font-bold uppercase">
                 <li>
@@ -87,7 +130,7 @@ const Dashboard = () => {
                 </li>
               </div>
             </>
-          )}
+          }
 
           <div className="border-t-2 border-white my-2"></div>
 

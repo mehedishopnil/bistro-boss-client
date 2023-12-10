@@ -15,6 +15,7 @@ import MyCart from "../pages/Dashboard/MyCart/MyCart";
 import UserHome from "../pages/Dashboard/UserHome/UserHome";
 import Reservation from "../pages/Dashboard/Reservation/Reservation";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
+import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
 
  export const router = createBrowserRouter([
     {
@@ -72,6 +73,10 @@ import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
           path: "paymentHistory",
           element: <PaymentHistory></PaymentHistory>
         },
+        {
+          path: "allUsers",
+          element: <AllUsers></AllUsers>
+        }
         
       ]
     }
