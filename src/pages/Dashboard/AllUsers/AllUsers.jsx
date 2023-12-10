@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
-import { FaUserShield, FaUsersSlash } from "react-icons/fa";
+import { FaUserShield } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Swal from "sweetalert2";
+import { RiAdminFill } from "react-icons/ri";
 
 const AllUsers = () => {
   const { data: users = [], refetch } = useQuery({
@@ -15,8 +17,24 @@ const AllUsers = () => {
     },
   });
 
-  const handleMakeAdmin = (id) => {
-
+  const handleMakeAdmin = (user) => {
+    fetch(`http://localhost:5000/users/admin/${user._id}`, {
+        method: 'PATCH',
+    })
+    .then(res => res.json())
+    .then(data =>{
+        console.log(data);
+        if(data.modifiedCount){
+            refetch();
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `${user.name} is an Admin`,
+                showConfirmButton: false,
+                timer: 1500
+              });
+        }
+    } )
   }
 
   const handleDelete = (user) => {
@@ -54,19 +72,23 @@ const AllUsers = () => {
                 <tr key={user._id}>
                   <th>{index + 1}</th>
                   <td>{user.name}</td>
-                  <td>{user.email}</td>
+                  {user.role === "admin"? 
+                  <td className="text-blue-800">{user.email} <div className="text-green-500">(Admin)</div></td> : 
+                  <td>{user.email}</td>}
                   <td className="text-2xl">
-                    {user.role === "admin" ? (
-                      "admin"
-                    ) : (
-                      <button onClick={ ()=> handleMakeAdmin(user._id)} className="p-2 rounded-lg text-lg text-white bg-[#D1A054] hover:bg-[#c29045]">
+                    {user.role === "admin" ? 
+                      <button className="p-2 rounded-lg text-lg text-green-700 bg-[#D1A054] hover:bg-[#c29045]">
+                      <RiAdminFill />
+                    </button>
+                     : 
+                      <button onClick={ ()=> handleMakeAdmin(user)} className="p-2 rounded-lg text-lg text-white bg-[#D1A054] hover:bg-[#c29045]">
                         <FaUserShield></FaUserShield>
                       </button>
-                    )}
+                    }
                   </td>
                   <td>
                     <button
-                      onClick={() => handleDelete(user)}
+                      onClick={() => handleDelete(users)}
                       className="p-2 rounded-lg text-lg text-white bg-[#B91C1C] hover:bg-[#931616]"
                     >
                       <RiDeleteBin6Line />
