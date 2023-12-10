@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from "react-helmet-async";
+import { FaUserShield, FaUsersSlash } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 const AllUsers = () => {
@@ -14,10 +15,18 @@ const AllUsers = () => {
     },
   });
 
-  const handleDelete = (user) => {};
+  const handleMakeAdmin = (id) => {
+
+  }
+
+  const handleDelete = (user) => {
+
+  };
+
+
 
   return (
-    <div className="card bg-base-100 shadow-xl p-10">
+    <div className="w-3/4 card bg-base-100 shadow-xl p-10">
       <Helmet>
         <title>Bistro | AllUsers</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
@@ -46,10 +55,18 @@ const AllUsers = () => {
                   <th>{index + 1}</th>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
-                  <td>Blue</td>
+                  <td className="text-2xl">
+                    {user.role === "admin" ? (
+                      "admin"
+                    ) : (
+                      <button onClick={ ()=> handleMakeAdmin(user._id)} className="p-2 rounded-lg text-lg text-white bg-[#D1A054] hover:bg-[#c29045]">
+                        <FaUserShield></FaUserShield>
+                      </button>
+                    )}
+                  </td>
                   <td>
                     <button
-                      onClick={() => handleDelete()}
+                      onClick={() => handleDelete(user)}
                       className="p-2 rounded-lg text-lg text-white bg-[#B91C1C] hover:bg-[#931616]"
                     >
                       <RiDeleteBin6Line />
