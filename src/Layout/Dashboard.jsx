@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   //TODO: load data from the server to have dynamic isAdmin based on Data
   // const isAdmin = true;
-  const [isAdmin] = useAdmin();
+  const [isAdmin] = useAdmin(); 
 
   return (
     <div className="drawer lg:drawer-open f">

@@ -4,6 +4,7 @@ import useAxiosSecure from './useAxiosSecure';
 
 const useCart = () => {
   const { user } = useAuth();
+  const token = localStorage.getItem('access-token')
   const [axiosSecure] = useAxiosSecure();
   console.log('user in cart',user?.email);
 
@@ -14,6 +15,15 @@ const useCart = () => {
       console.log('res from axios', res);
       return res.data;
     },
+    // queryFn: async () => {
+    //   const res = await axiosSecure.get(`/cart?email=${user.email}`,{
+    //     headers:{
+    //       authorization: `bearer ${token}`
+    //     }
+    //   }); // Use axiosSecure as a function
+    //   console.log('res from axios', res);
+    //   return res.data;
+    // },
   });
 
   return [cart, refetch];

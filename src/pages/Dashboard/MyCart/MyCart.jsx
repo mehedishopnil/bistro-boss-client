@@ -6,13 +6,14 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 
 const MyCart = () => {
   const [cart, refetch] = useCart();
-  console.log(cart);
+
+  // Calculate total price of items in the cart
   const totalPrice = Number(
     cart.reduce((sum, item) => item.price + sum, 0).toFixed(2)
   );
 
-  const handleDelete = (items) => {
-    console.log("delete button check the item:", items);
+  // Handle item deletion from the cart
+  const handleDelete = (item) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -21,20 +22,21 @@ const MyCart = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    })
-    .then((result) => {
+    }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/cart/${items._id}`, {
+        // Send DELETE request to the server
+        fetch(`http://localhost:5000/cart/${item._id}`, {
           method: "DELETE",
         })
           .then((res) => res.json())
           .then((data) => {
             console.log("Server response:", data);
             if (data.deletedCount > 0) {
+              // Refetch cart data after successful deletion
               refetch();
               Swal.fire({
                 title: "Deleted!",
-                text: "Your file has been deleted.",
+                text: "Your item has been deleted.",
                 icon: "success",
               });
             }
@@ -49,14 +51,14 @@ const MyCart = () => {
   return (
     <div className="container mx-auto w-4/5">
       <Helmet>
-        <title>Bistro | MyCart</title>
+        <title>Bistro | My Cart</title>
         <link rel="canonical" href="https://www.tacobell.com/" />
       </Helmet>
 
       <div className="flex justify-between font-bold font-[Cinzel] uppercase gap-10 my-5">
         <h1 className="text-3xl">Total Order: {cart.length}</h1>
         <h1 className="text-3xl">Total Price: ${totalPrice}</h1>
-        <Link>
+        <Link to="/checkout">
           <button className="btn bg-[#D1A054] text-white hover:bg-[#c39043]">
             PAY
           </button>
@@ -65,10 +67,10 @@ const MyCart = () => {
 
       <div>
         <div className="overflow-x-auto">
-          <table className="table ">
-            {/* head */}
+          <table className="table">
+            {/* Table Head */}
             <thead className="uppercase text-sm rounded font-bold mt-10 text-white bg-[#D1A054] overflow-hidden">
-              <tr className="">
+              <tr>
                 <th></th>
                 <th>Image</th>
                 <th>Product Name</th>
@@ -77,48 +79,42 @@ const MyCart = () => {
               </tr>
             </thead>
 
-            {/* row 1 */}
-            
-              {cart.map((items) => (
-                <tbody className="" style={{ padding: "30px" }} key={items._id}>
-                <tr>
-                  <th>
+            {/* Table Body */}
+            <tbody>
+              {cart.map((item) => (
+                <tr key={item._id}>
+                  <td>
                     <label>
                       <input type="checkbox" className="checkbox" />
                     </label>
-                  </th>
+                  </td>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar">
                         <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={items.image}
-                            alt="Avatar Tailwind CSS Component"
-                          />
+                          <img src={item.image} alt="Product Image" />
                         </div>
                       </div>
                     </div>
                   </td>
                   <td>
                     <div>
-                      <div className="font-bold">{items.name}</div>
-                      <div className="text-sm opacity-50">{items.email}</div>
+                      <div className="font-bold">{item.name}</div>
+                      <div className="text-sm opacity-50">{item.email}</div>
                     </div>
                   </td>
-
-                  <td>{items.price}</td>
-                  <th>
+                  <td>{item.price}</td>
+                  <td>
                     <button
-                      onClick={() => handleDelete(items)}
+                      onClick={() => handleDelete(item)}
                       className="btn btn-md text-xl text-white bg-[#B91C1C] hover:bg-[#931616]"
                     >
                       <RiDeleteBin6Line />
                     </button>
-                  </th>
+                  </td>
                 </tr>
-                </tbody>
               ))}
-            
+            </tbody>
           </table>
         </div>
       </div>

@@ -4,7 +4,7 @@ import useAxiosSecure from "./useAxiosSecure";
 
 const useAdmin = () => {
   const { user } = useAuth();
-  const axiosSecure = useAxiosSecure(); // Remove array destructuring
+const [axiosSecure] = useAxiosSecure();
   const { data: isAdmin, isLoading: isAdminLoading } = useQuery({
     queryKey: ['isAdmin', user?.email],
     queryFn: async () => {

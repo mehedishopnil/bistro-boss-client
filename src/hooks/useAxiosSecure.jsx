@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "./useAuth";
 
 const useAxiosSecure = () => {
-  const { token, logOut } = useAuth();
+  const {logOut } = useAuth();
   const navigate = useNavigate();
 
   const axiosSecure = axios.create({
@@ -16,7 +16,11 @@ const useAxiosSecure = () => {
   useEffect(() => {
     // Update the authorization header if the token changes
     axiosSecure.interceptors.request.use((config) => {
-      config.headers.Authorization = `Bearer ${token}`;
+      const token = localStorage.getItem('access-token');
+
+      if(token){
+        config.headers.Authorization = `Bearer ${token}`;
+      }
       return config;
     });
 
@@ -34,7 +38,7 @@ const useAxiosSecure = () => {
         return Promise.reject(error);
       }
     );
-  }, [token, logOut, navigate, axiosSecure]);
+  }, [logOut, navigate, axiosSecure]);
 
   return [axiosSecure];
 };
