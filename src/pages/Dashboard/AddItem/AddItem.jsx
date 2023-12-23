@@ -10,8 +10,8 @@ const AddItem = () => {
         ></SectionTitle>
       </div>
 
-      <div className="flex items-center">
-        <form className="w-full flex flex-col items-center space-y-3">
+      <div className="grid justify-center items-center">
+        <form className="w-full  space-y-3">
           <label className="">
             <div className="label">
               <span className="label-text font-bold ">Recipe name*</span>
@@ -26,20 +26,17 @@ const AddItem = () => {
           <div className="flex gap-5">
             <label className="form-control w-full max-w-xs">
               <div className="label">
-                <span className="label-text font-bold">
-                Category*
-                </span>
-
+                <span className="label-text font-bold">Category*</span>
               </div>
               <select className="select select-bordered">
                 <option disabled selected>
                   Category
                 </option>
-                <option>Star Wars</option>
-                <option>Harry Potter</option>
-                <option>Lord of the Rings</option>
-                <option>Planet of the Apes</option>
-                <option>Star Trek</option>
+                <option>Dessert</option>
+                <option>Pizza</option>
+                <option>Salads</option>
+                <option>Soups</option>
+                <option>Drinks</option>
               </select>
             </label>
 
@@ -48,21 +45,31 @@ const AddItem = () => {
                 <span className="label-text font-bold ">Price*</span>
               </div>
               <input
-                type="text"
+                type="number"
                 placeholder="Recipe name"
                 className="input input-bordered "
               />
             </label>
           </div>
 
-          <label className="">
+          <label className="form-control">
             <div className="label">
-              <span className="label-text font-bold ">Recipe Details*</span>
+              <span className="label-text">Recipe Details*</span>
+            </div>
+            <textarea
+              className="textarea textarea-bordered w-[500px] h-[250px]"
+              placeholder="Recipe Details"
+            ></textarea>
+          </label>
+
+
+          <label className="form-control flex items-start">
+            <div className="label">
+              <span className="label-text font-bold">Choose File</span>
             </div>
             <input
-              type="text"
-              placeholder="Recipe name"
-              className="input input-bordered w-[500px] h-[250px] "
+              type="file"
+              className="file-input file-input-bordered "
             />
           </label>
         </form>
