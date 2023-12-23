@@ -16,6 +16,8 @@ import UserHome from "../pages/Dashboard/UserHome/UserHome";
 import Reservation from "../pages/Dashboard/Reservation/Reservation";
 import PaymentHistory from "../pages/Dashboard/PaymentHistory/PaymentHistory";
 import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
+import AddItem from "../pages/Dashboard/AddItem/AddItem";
+import AdminRoute from "./AdminRoute";
 
  export const router = createBrowserRouter([
     {
@@ -75,7 +77,11 @@ import AllUsers from "../pages/Dashboard/AllUsers/AllUsers";
         },
         {
           path: "allUsers",
-          element: <AllUsers></AllUsers>
+          element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
+        },
+        {
+          path: 'addItems',
+          element: <AdminRoute><AddItem></AddItem></AdminRoute>
         }
         
       ]

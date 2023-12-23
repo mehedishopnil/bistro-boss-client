@@ -49,6 +49,7 @@ const Dashboard = () => {
           </div>
           {/* Sidebar content here */}
           {isAdmin ?
+          // For Admin Access Only::
             <>
             <div className="text-lg font-bold uppercase">
                 <li>
@@ -59,7 +60,7 @@ const Dashboard = () => {
                 </li>
 
                 <li>
-                  <NavLink to="reservation" activeClassName="text-white">
+                  <NavLink to="addItems" activeClassName="text-white">
                     <FaUtensils></FaUtensils>
                     Add Items
                   </NavLink>
@@ -90,6 +91,7 @@ const Dashboard = () => {
               </div>
             </>
            : 
+          //  for Normal User Access::
             <>
               <div className="text-lg font-bold uppercase">
                 <li>

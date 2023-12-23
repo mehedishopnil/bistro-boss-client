@@ -12,7 +12,8 @@ const AllUsers = () => {
     queryKey: ["users"],
     queryFn: async () => {
       const res = await axiosSecure.get("/users");
-      if (!res.ok) {
+      console.log(res.data);
+      if (!res) {
         throw new Error("Failed to fetch users");
       }
       return res.data;
@@ -43,7 +44,34 @@ const AllUsers = () => {
   // Handle deleting a user
   //TODO: HandleDelete function needed to complete the work
   const handleDelete = (user) => {
-    // Implement the logic for deleting a user
+    fetch(`http://localhost:5000/users/${user._id}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (res.ok) {
+          // Assuming the user is removed from the users array in the state
+          // Update the UI, for example:
+          refetch();
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: `${user.name} has been deleted`,
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        } else {
+          throw new Error("Failed to delete user");
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        // Handle error, for example show an error message
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "Failed to delete the user",
+        });
+      });
   };
 
   return (
