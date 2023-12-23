@@ -1,4 +1,5 @@
 import SectionTitle from "../../../components/SectionTitle/SectionTitle";
+import { ImSpoonKnife } from "react-icons/im";
 
 const AddItem = () => {
   return (
@@ -72,6 +73,7 @@ const AddItem = () => {
               className="file-input file-input-bordered "
             />
           </label>
+          <button type="submit" className="btn text-lg rounded-none text-white bg-gradient-to-r from-[#835D23] to-[#B58130]">Add Item <ImSpoonKnife /></button>
         </form>
       </div>
     </div>
