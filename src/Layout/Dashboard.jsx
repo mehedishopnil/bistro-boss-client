@@ -20,7 +20,7 @@ const Dashboard = () => {
 
   //TODO: load data from the server to have dynamic isAdmin based on Data
   // const isAdmin = true;
-  const [isAdmin] = useAdmin(); 
+  const [isAdmin] = useAdmin();
 
   return (
     <div className="drawer lg:drawer-open f">
@@ -53,35 +53,35 @@ const Dashboard = () => {
             <>
             <div className="text-lg font-bold uppercase">
                 <li>
-                  <NavLink to="userHome" activeClassName="text-white">
+                  <NavLink to="userHome" activeclassname="text-white">
                     <FaHome />
                     Admin Home
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to="addItems" activeClassName="text-white">
+                  <NavLink to="addItems" activeclassname="text-white">
                     <FaUtensils></FaUtensils>
                     Add Items
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to="paymentHistory" activeClassName="text-white">
+                  <NavLink to="manageItems" activeclassname="text-white">
                     <FaListUl></FaListUl>
                     Manage Items
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to="paymentHistory" activeClassName="text-white">
+                  <NavLink to="paymentHistory" activeclassname="text-white">
                     <FaBook></FaBook>
                     Manage Bookings
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to="allUsers" activeClassName="text-white">
+                  <NavLink to="allUsers" activeclassname="text-white">
                     <FaUsers></FaUsers>
                     All Users
                   </NavLink>
@@ -95,21 +95,21 @@ const Dashboard = () => {
             <>
               <div className="text-lg font-bold uppercase">
                 <li>
-                  <NavLink to="userHome" activeClassName="text-white">
+                  <NavLink to="userHome" activeclassname="text-white">
                     <FaHome />
                     User Home
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to="reservation" activeClassName="text-white">
+                  <NavLink to="reservation" activeclassname="text-white">
                     <FaCalendarAlt />
                     Reservation
                   </NavLink>
                 </li>
 
                 <li>
-                  <NavLink to="paymentHistory" activeClassName="text-white">
+                  <NavLink to="paymentHistory" activeclassname="text-white">
                     <FaWallet />
                     Payment History
                   </NavLink>
@@ -118,7 +118,7 @@ const Dashboard = () => {
                 <li>
                   <NavLink
                     to="myCart"
-                    activeClassName="text-white"
+                    activeclassname="text-white"
                     className={"flex items-center"}
                   >
                     <div className="flex gap-2 items-center">
@@ -140,28 +140,28 @@ const Dashboard = () => {
 
           <div className="text-lg font-bold uppercase">
             <li>
-              <NavLink to="/" activeClassName="text-white">
+              <NavLink to="/" activeclassname="text-white">
                 <FaHome />
                 Home
               </NavLink>
             </li>
 
             <li>
-              <NavLink to="/menu" activeClassName="text-white">
+              <NavLink to="/menu" activeclassname="text-white">
                 <TiThMenu />
                 Menu
               </NavLink>
             </li>
 
             <li>
-              <NavLink to="/order/salad" activeClassName="text-white">
+              <NavLink to="/order/salad" activeclassname="text-white">
                 <FaShoppingBag />
                 Shop
               </NavLink>
             </li>
 
             <li>
-              <NavLink to="/contactUs" activeClassName="text-white">
+              <NavLink to="/contactUs" activeclassname="text-white">
                 <FaEnvelope />
                 Contact
               </NavLink>
