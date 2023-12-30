@@ -58,7 +58,7 @@ const MyCart = () => {
       <div className="flex justify-between font-bold font-[Cinzel] uppercase gap-10 my-5">
         <h1 className="text-3xl">Total Order: {cart.length}</h1>
         <h1 className="text-3xl">Total Price: ${totalPrice}</h1>
-        <Link to="/checkout">
+        <Link to="/dashboard/payment">
           <button className="btn bg-[#D1A054] text-white hover:bg-[#c39043]">
             PAY
           </button>
