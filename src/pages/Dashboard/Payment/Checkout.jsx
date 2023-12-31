@@ -1,8 +1,15 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import {  useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
-const Checkout = () => {
+const Checkout = ({price}) => {
   const stripe = useStripe();
   const elements = useElements();
+  const [cardError, setCardError] = useState('');
+
+  useEffect(()=>{
+    
+  },[])
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,6 +23,7 @@ const Checkout = () => {
     if (card == null) {
       return;
     }
+    console.log('card', card);
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
@@ -24,13 +32,25 @@ const Checkout = () => {
 
     if (error) {
       console.log("[error]", error);
-    } else {
+      setCardError(error?.message);
+    } 
+    else {
       console.log("[PaymentMethod", paymentMethod);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Successfully add the card",
+        showConfirmButton: false,
+        timer: 1500
+      });
+
     }
+    
+    
   };
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center ">
       <form onSubmit={handleSubmit} 
     className="w-1/2 flex flex-col  justify-center">
       <CardElement
@@ -51,7 +71,9 @@ const Checkout = () => {
             },
           },
         }}
+        className="bg-[#fff8ed] h-8 pt-2"
       />
+      <p className="text-red-500">{cardError}</p>
       <button
         type="submit"
         disabled={!stripe}
