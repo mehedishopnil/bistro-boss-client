@@ -13,7 +13,7 @@ const ITEMS_PER_PAGE = 6;
 
 const Order = ({ onPageChange }) => {
   const [menu] = useMenu();
-  const categories = ["salad", "pizza", "soup", "dessert", "drinks"];
+  const categories = ["salad", "pizza", "soup", "dessert", "drinks", "deshi"];
   const { category } = useParams();
   const initialIndex = categories.indexOf(category);
   const [tabIndex, setTabIndex] = useState(initialIndex);

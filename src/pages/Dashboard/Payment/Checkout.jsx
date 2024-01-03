@@ -16,10 +16,11 @@ const Checkout = ({ price, cart }) => {
   const [transactionId, setTransactionId] = useState("");
 
   useEffect(() => {
-    console.log(price);
-    axiosSecure.post("/create-payment-intent", { price }).then((res) => {
-      setClientSecret(res.data.clientSecret);
-    });
+    if(price > 0){
+      axiosSecure.post("/create-payment-intent", { price }).then((res) => {
+        setClientSecret(res.data.clientSecret);
+      });
+    }
   }, [price, axiosSecure]);
 
   const handleSubmit = async (event) => {
@@ -82,7 +83,7 @@ const Checkout = ({ price, cart }) => {
         price,
         date: new Date(),
         quantity: cart.length,
-        cardItems: cart.map(item => item._id),
+        cartItems: cart.map(item => item._id),
         menuItems: cart.map(item => item.menuItemId),
         status: 'Service Pending',
         itemNames: cart.map(item => item.name)
@@ -91,7 +92,7 @@ const Checkout = ({ price, cart }) => {
       axiosSecure.post('/payments',payment)
       .then(res =>{
         console.log(res.data);
-        if(res.data.insertedId){
+        if(res.data.result.insertedId){
           //display confirm
         }
       })
