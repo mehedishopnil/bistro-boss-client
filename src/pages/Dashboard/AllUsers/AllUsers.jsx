@@ -22,7 +22,7 @@ const AllUsers = () => {
 
   // Handle making a user an admin
   const handleMakeAdmin = (user) => {
-    fetch(`https://bistro-boss-server-rho-nine.vercel.app/users/admin/${user._id}`, {
+    fetch(`http://localhost:5000/users/admin/${user._id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())
@@ -44,7 +44,7 @@ const AllUsers = () => {
   // Handle deleting a user
   //TODO: HandleDelete function needed to complete the work
   const handleDelete = (user) => {
-    fetch(`https://bistro-boss-server-rho-nine.vercel.app/users/${user._id}`, {
+    fetch(`http://localhost:5000/users/${user._id}`, {
       method: "DELETE",
     })
       .then((res) => {

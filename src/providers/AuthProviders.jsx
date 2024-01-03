@@ -43,7 +43,7 @@ const AuthProviders = ({ children }) => {
 
       // Users for backend server:
       const saveUser = { name: name, email: email };
-      const response = await fetch("https://bistro-boss-server-rho-nine.vercel.app/users", {
+      const response = await fetch("http://localhost:5000/users", {
         method: "POST", // Use POST instead of PUT if that's the method in your server
         headers: {
           "content-type": "application/json",
@@ -124,7 +124,7 @@ const AuthProviders = ({ children }) => {
       //get and set token::
       if (currentUser) {
         axios
-          .post("https://bistro-boss-server-rho-nine.vercel.app/jwt", {
+          .post("http://localhost:5000/jwt", {
             email: currentUser.email,
           })
           .then((data) => {
@@ -143,7 +143,7 @@ const AuthProviders = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    fetch("https://bistro-boss-server-rho-nine.vercel.app/reviews")
+    fetch("http://localhost:5000/reviews")
       .then((res) => res.json())
       .then((data) => setReviews(data));
   }, []);

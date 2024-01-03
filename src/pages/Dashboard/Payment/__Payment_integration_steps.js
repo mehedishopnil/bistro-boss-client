@@ -8,5 +8,10 @@
  * 7. on the server site install stripe.
  * npm install --save stripe.
  * 8. create a payment intent api with payment method types: ['card']
- * 9. make sure you provide amount in cents (multiply amount with 100)
+ *  make sure you provide amount in cents (multiply amount with 100)
+ * 9. call payment intent api to get client secret and store it in a state
+ * 10. use confirmCardPayment api with client secret card info
+ * 11. display confirm card error
+ * 12. display confirm card success
+ * 13. do things after payment -->
  */
