@@ -53,7 +53,7 @@ const Dashboard = () => {
             <>
             <div className="text-lg font-bold uppercase">
                 <li>
-                  <NavLink to="userHome" activeclassname="text-white">
+                  <NavLink to="adminHome" activeclassname="text-white">
                     <FaHome />
                     Admin Home
                   </NavLink>
