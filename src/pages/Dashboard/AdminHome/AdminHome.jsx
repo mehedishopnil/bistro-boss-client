@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
+import { PieChart, Pie,  ResponsiveContainer } from 'recharts';
 
 const AdminHome = () => {
   const { user } = useAuth();
@@ -15,14 +16,16 @@ const AdminHome = () => {
     },
   });
 
-  const {data: chartData = []} = useQuery({
+  const { data: chartData = [] } = useQuery({
     queryKey: ["orderStats"],
-    queryFn: async()=> {
-        const res = await axiosSecure("/orderStats");
-        return res.data;
+    queryFn: async () => {
+      const res = await axiosSecure("/orderStats");
+      return res.data;
     },
   });
-   console.log('Order Stats', chartData);
+  console.log("Order Stats", chartData);
+
+  //For Bar Chart part::
 
   const colors = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "red", "pink"];
 
@@ -42,6 +45,32 @@ const AdminHome = () => {
 
     return <path d={getPath(x, y, width, height)} stroke="none" fill={fill} />;
   };
+
+  //For Pie chart Part::
+  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    
+  }) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+        <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
+          {`${(percent * 100).toFixed(0)}%`}
+        </text>
+      );
+  };
+   
+
 
   return (
     <div className="w-full px-5">
@@ -164,7 +193,29 @@ const AdminHome = () => {
         </div>
 
         {/* Custom Pie Chart */}
-        <div className="w-1/2"></div>
+        <div className="w-1/2">
+          <ResponsiveContainer width="100%" height="100%">
+            <PieChart width={400} height={400}>
+              <Pie
+                data={chartData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={renderCustomizedLabel}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="count"
+              >
+                {chartData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );
