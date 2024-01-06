@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
-import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, Cell, Legend, XAxis, YAxis } from "recharts";
 import { PieChart, Pie,  ResponsiveContainer } from 'recharts';
 
 const AdminHome = () => {
@@ -162,7 +162,7 @@ const AdminHome = () => {
         </div>
       </div>
 
-      <div className="flex">
+      <div className="flex mt-20">
         {/* Custom Shape Bar Chart */}
         <div className="w-1/2">
           <BarChart
@@ -196,6 +196,7 @@ const AdminHome = () => {
         <div className="w-1/2">
           <ResponsiveContainer width="100%" height="100%">
             <PieChart width={400} height={400}>
+                <Legend></Legend>
               <Pie
                 data={chartData}
                 cx="50%"
@@ -208,6 +209,7 @@ const AdminHome = () => {
               >
                 {chartData.map((entry, index) => (
                   <Cell
+                  name={entry.category}
                     key={`cell-${index}`}
                     fill={COLORS[index % COLORS.length]}
                   />

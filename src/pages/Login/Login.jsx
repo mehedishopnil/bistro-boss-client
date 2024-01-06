@@ -139,7 +139,7 @@ const Login = () => {
               <div className="form-control mt-6">
                 <input
                   type="submit"
-                  value="Login  "
+                  value="Login"
                   disabled={false}
                   className="btn bg-[#D1A054] text-white hover:bg-[#b18441]"
                 />

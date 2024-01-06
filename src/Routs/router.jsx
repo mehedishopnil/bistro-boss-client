@@ -51,10 +51,7 @@ import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
           path: '/registration',
           element: <Registration></Registration>
         },
-        {
-          path: 'secret',
-          element: <PrivateRout><Secret></Secret></PrivateRout>
-        }
+       
         
       ]
     },
